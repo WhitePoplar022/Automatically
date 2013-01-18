@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="28880b79233c4a50a37991189d120401" Name="Diagram1" DisplayType="true">
+        <EntityTypeShape EntityType="ModelDB.Child" Width="2.875" PointX="4.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelDB.Parent" Width="3" PointX="0.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelDB.Single" Width="3" PointX="8" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="ModelDB.FK_Children_Parents" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

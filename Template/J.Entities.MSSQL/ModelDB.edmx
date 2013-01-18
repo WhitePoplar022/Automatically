@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModelDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ModelDBStoreContainer">
+          <EntitySet Name="Children" EntityType="ModelDB.Store.Children" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Parents" EntityType="ModelDB.Store.Parents" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Singles" EntityType="ModelDB.Store.Singles" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Children_Parents" Association="ModelDB.Store.FK_Children_Parents">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Children">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="ParentID" Type="nvarchar" MaxLength="200" />
+          <Property Name="ChildID" Type="int" />
+          <Property Name="ChildIntNumber" Type="int" />
+          <Property Name="ChildIntEnum" Type="int" />
+          <Property Name="ChildMoney" Type="decimal" Scale="8" />
+          <Property Name="ChildDatetime" Type="datetime2" />
+          <Property Name="ChildVarchar" Type="nvarchar" MaxLength="200" />
+          <Property Name="ChildLongVarchar" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ChildBit" Type="bit" />
+          <Property Name="ChildTinyintBool" Type="tinyint" />
+          <Property Name="ChildTinyintEnum" Type="tinyint" />
+          <Property Name="ChildText" Type="ntext" />
+          <Property Name="ChildBinary" Type="image" />
+        </EntityType>
+        <EntityType Name="Parents">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="ParentIntNumber" Type="int" />
+          <Property Name="ParentIntEnum" Type="int" />
+          <Property Name="ParentMoney" Type="decimal" Scale="8" />
+          <Property Name="ParentDatetime" Type="datetime2" />
+          <Property Name="ParentVarchar" Type="nvarchar" MaxLength="200" />
+          <Property Name="ParentLongVarchar" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ParentBit" Type="bit" />
+          <Property Name="ParentTinyintBool" Type="tinyint" />
+          <Property Name="ParentTinyintEnum" Type="tinyint" />
+          <Property Name="ParentText" Type="ntext" />
+          <Property Name="ParentBinary" Type="image" />
+        </EntityType>
+        <EntityType Name="Singles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SingleIntNumber" Type="int" />
+          <Property Name="SingleIntEnum" Type="int" />
+          <Property Name="SingleMoney" Type="decimal" Scale="8" />
+          <Property Name="SingleDatetime" Type="datetime2" />
+          <Property Name="SingleVarchar" Type="nvarchar" MaxLength="200" />
+          <Property Name="SingleLongVarchar" Type="nvarchar" MaxLength="2000" />
+          <Property Name="SingleBit" Type="bit" />
+          <Property Name="SingleTinyintBool" Type="tinyint" />
+          <Property Name="SingleTinyintEnum" Type="tinyint" />
+          <Property Name="SingleText" Type="ntext" />
+          <Property Name="SingleBinary" Type="image" />
+        </EntityType>
+        <Association Name="FK_Children_Parents">
+          <End Role="Parents" Type="ModelDB.Store.Parents" Multiplicity="0..1" />
+          <End Role="Children" Type="ModelDB.Store.Children" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModelDB" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Children" EntityType="ModelDB.Child" />
+          <EntitySet Name="Parents" EntityType="ModelDB.Parent" />
+          <EntitySet Name="Singles" EntityType="ModelDB.Single" />
+          <AssociationSet Name="FK_Children_Parents" Association="ModelDB.FK_Children_Parents">
+            <End Role="Parents" EntitySet="Parents" />
+            <End Role="Children" EntitySet="Children" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Child">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ParentID" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ChildID" Type="Int32" />
+          <Property Name="ChildIntNumber" Type="Int32" />
+          <Property Name="ChildIntEnum" Type="ModelDB.EChildIntEnum" />
+          <Property Name="ChildMoney" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="ChildDatetime" Type="DateTime" Precision="7" />
+          <Property Name="ChildVarchar" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ChildLongVarchar" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="ChildBit" Type="Boolean" />
+          <Property Name="ChildTinyintBool_" Type="Byte" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Internal" />
+          <Property Name="ChildTinyintEnum" Type="ModelDB.EChildTinyintEnum" />
+          <Property Name="ChildText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ChildBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Parent" Relationship="ModelDB.FK_Children_Parents" FromRole="Children" ToRole="Parents" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ParentIntNumber" Type="Int32" />
+          <Property Name="ParentIntEnum" Type="ModelDB.EParentIntEnum" />
+          <Property Name="ParentMoney" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="ParentDatetime" Type="DateTime" Precision="7" />
+          <Property Name="ParentVarchar" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ParentLongVarchar" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="ParentBit" Type="Boolean" />
+          <Property Name="ParentTinyintBool_" Type="Byte" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Internal" />
+          <Property Name="ParentTinyintEnum" Type="ModelDB.EParentTinyintEnum" />
+          <Property Name="ParentText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ParentBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Children" Relationship="ModelDB.FK_Children_Parents" FromRole="Parents" ToRole="Children" />
+        </EntityType>
+        <EntityType Name="Single">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SingleIntNumber" Type="Int32" />
+          <Property Name="SingleIntEnum" Type="ModelDB.ESingleIntEnum" />
+          <Property Name="SingleMoney" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="SingleDatetime" Type="DateTime" Precision="7" />
+          <Property Name="SingleVarchar" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="SingleLongVarchar" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="SingleBit" Type="Boolean" />
+          <Property Name="SingleTinyintBool_" Type="Byte" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Internal" />
+          <Property Name="SingleTinyintEnum" Type="ModelDB.ESingleTinyintEnum" />
+          <Property Name="SingleText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SingleBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Children_Parents">
+          <End Role="Parents" Type="ModelDB.Parent" Multiplicity="0..1" />
+          <End Role="Children" Type="ModelDB.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parents">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="Children">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="EParentIntEnum">
+          <Member Name="A" Value="1" />
+          <Member Name="B" Value="2" />
+          <Member Name="C" Value="3" />
+        </EnumType>
+        <EnumType Name="EParentTinyintEnum" UnderlyingType="Byte">
+          <Member Name="A" Value="1" />
+          <Member Name="B" Value="2" />
+          <Member Name="C" Value="3" />
+        </EnumType>
+        <EnumType Name="EChildIntEnum">
+          <Member Name="A" Value="1" />
+          <Member Name="B" Value="2" />
+          <Member Name="C" Value="3" />
+        </EnumType>
+        <EnumType Name="EChildTinyintEnum" UnderlyingType="Byte">
+          <Member Name="A" Value="1" />
+          <Member Name="B" Value="2" />
+          <Member Name="C" Value="3" />
+        </EnumType>
+        <EnumType Name="ESingleIntEnum">
+          <Member Name="A" Value="1" />
+          <Member Name="B" Value="2" />
+          <Member Name="C" Value="3" />
+        </EnumType>
+        <EnumType Name="ESingleTinyintEnum" UnderlyingType="Byte">
+          <Member Name="A" Value="1" />
+          <Member Name="B" Value="2" />
+          <Member Name="C" Value="3" />
+        </EnumType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelDBStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Children">
+            <EntityTypeMapping TypeName="ModelDB.Child">
+              <MappingFragment StoreEntitySet="Children">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ChildID" ColumnName="ChildID" />
+                <ScalarProperty Name="ChildIntNumber" ColumnName="ChildIntNumber" />
+                <ScalarProperty Name="ChildIntEnum" ColumnName="ChildIntEnum" />
+                <ScalarProperty Name="ChildMoney" ColumnName="ChildMoney" />
+                <ScalarProperty Name="ChildDatetime" ColumnName="ChildDatetime" />
+                <ScalarProperty Name="ChildVarchar" ColumnName="ChildVarchar" />
+                <ScalarProperty Name="ChildLongVarchar" ColumnName="ChildLongVarchar" />
+                <ScalarProperty Name="ChildBit" ColumnName="ChildBit" />
+                <ScalarProperty Name="ChildTinyintBool_" ColumnName="ChildTinyintBool" />
+                <ScalarProperty Name="ChildTinyintEnum" ColumnName="ChildTinyintEnum" />
+                <ScalarProperty Name="ChildText" ColumnName="ChildText" />
+                <ScalarProperty Name="ChildBinary" ColumnName="ChildBinary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parents">
+            <EntityTypeMapping TypeName="ModelDB.Parent">
+              <MappingFragment StoreEntitySet="Parents">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ParentIntNumber" ColumnName="ParentIntNumber" />
+                <ScalarProperty Name="ParentIntEnum" ColumnName="ParentIntEnum" />
+                <ScalarProperty Name="ParentMoney" ColumnName="ParentMoney" />
+                <ScalarProperty Name="ParentDatetime" ColumnName="ParentDatetime" />
+                <ScalarProperty Name="ParentVarchar" ColumnName="ParentVarchar" />
+                <ScalarProperty Name="ParentLongVarchar" ColumnName="ParentLongVarchar" />
+                <ScalarProperty Name="ParentBit" ColumnName="ParentBit" />
+                <ScalarProperty Name="ParentTinyintBool_" ColumnName="ParentTinyintBool" />
+                <ScalarProperty Name="ParentTinyintEnum" ColumnName="ParentTinyintEnum" />
+                <ScalarProperty Name="ParentText" ColumnName="ParentText" />
+                <ScalarProperty Name="ParentBinary" ColumnName="ParentBinary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Singles">
+            <EntityTypeMapping TypeName="ModelDB.Single">
+              <MappingFragment StoreEntitySet="Singles">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SingleIntNumber" ColumnName="SingleIntNumber" />
+                <ScalarProperty Name="SingleIntEnum" ColumnName="SingleIntEnum" />
+                <ScalarProperty Name="SingleMoney" ColumnName="SingleMoney" />
+                <ScalarProperty Name="SingleDatetime" ColumnName="SingleDatetime" />
+                <ScalarProperty Name="SingleVarchar" ColumnName="SingleVarchar" />
+                <ScalarProperty Name="SingleLongVarchar" ColumnName="SingleLongVarchar" />
+                <ScalarProperty Name="SingleBit" ColumnName="SingleBit" />
+                <ScalarProperty Name="SingleTinyintBool_" ColumnName="SingleTinyintBool" />
+                <ScalarProperty Name="SingleTinyintEnum" ColumnName="SingleTinyintEnum" />
+                <ScalarProperty Name="SingleText" ColumnName="SingleText" />
+                <ScalarProperty Name="SingleBinary" ColumnName="SingleBinary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
