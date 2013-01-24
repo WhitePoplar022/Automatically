@@ -22,6 +22,10 @@ namespace J.MainWeb.Controllers
 
             return View(db.Parents.ToList());
         }
+        public ActionResult IndexList() {
+
+            return Json(db.Parents.ToList());
+        }
 
         //
         // GET: /Parent/Details/5

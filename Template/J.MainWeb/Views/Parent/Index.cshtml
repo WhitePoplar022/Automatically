@@ -6,7 +6,13 @@
 
 <script type="text/javascript">
     $(function () {
+        alert('a');
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            alert("IE");
 
+        } else {
+            alert("非IE");
+        }
         //$("#Parent-search").jsearch({
         //    items: [
 		//			{ Name: "小数和整数", Id: "txt_double", Type: "double" },
@@ -23,8 +29,12 @@
         //            { Name: "单选", Id: "txt_State1", Type: "selectSingle", Value: [{ value: 0, text: "全部" }, { value: 1, text: "正常" }, { value: 2, text: "停用", selected: true }] },
 		//			{ Name: "多选", Id: "txt_State", Type: "selectMultiple", Value: [{ value: 0, text: "全部" }, { value: 1, text: "正常" }, { value: 2, text: "停用" }] }
 
-        //    ]
+        //    ],
+        //    onSearchButtonClick: function (data) {
+        //    }
         //});
+        //$("#radioContent").jradio();
+
    
     });
 
