@@ -54,8 +54,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\J.Entities.MSSQL\J.Entities.csproj">
-      <Project>{8ad8b2fe-bc6c-427c-94dd-e33035cd3172}</Project>
+    <ProjectReference Include="..\J.Entities.MySQL\J.Entities.csproj">
+      <Project>{68035a67-a778-4887-99d3-fcb3c962dbba}</Project>
       <Name>J.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\J.Utility\J.Utility.csproj">

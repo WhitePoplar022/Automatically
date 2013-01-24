@@ -1,0 +1,99 @@
+﻿@model J.Entities.Parent
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Parent</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentTinyintBool)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentTinyintBool)
+            @Html.ValidationMessageFor(model => model.ParentTinyintBool)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GUID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GUID)
+            @Html.ValidationMessageFor(model => model.GUID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentIntNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentIntNumber)
+            @Html.ValidationMessageFor(model => model.ParentIntNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentMoney)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentMoney)
+            @Html.ValidationMessageFor(model => model.ParentMoney)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentDatetime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentDatetime)
+            @Html.ValidationMessageFor(model => model.ParentDatetime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentVarchar)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentVarchar)
+            @Html.ValidationMessageFor(model => model.ParentVarchar)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentLongVarchar)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentLongVarchar)
+            @Html.ValidationMessageFor(model => model.ParentLongVarchar)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentBit)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentBit)
+            @Html.ValidationMessageFor(model => model.ParentBit)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentText)
+            @Html.ValidationMessageFor(model => model.ParentText)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
