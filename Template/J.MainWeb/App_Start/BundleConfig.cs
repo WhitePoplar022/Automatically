@@ -34,6 +34,9 @@ namespace J.MainWeb
 
 			bundles.Add(new ScriptBundle("~/Static/jUI/js/files").Include(
 						"~/Static/jUI/js/jui*"));
+
+			bundles.Add(new ScriptBundle("~/Static/extendjs/files").Include(
+						"~/Static/extendjs/extendjs*"));
 		}
 	}
 }

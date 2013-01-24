@@ -140,6 +140,7 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Static\extendjs\extendjs.js" />
     <Content Include="Static\jquery-ui\css\jquery-ui.css" />
     <Content Include="Static\jquery-ui\css\jquery-ui.min.css" />
     <Content Include="Static\jquery-ui\images\animated-overlay.gif" />
