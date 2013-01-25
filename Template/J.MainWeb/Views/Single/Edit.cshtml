@@ -1,93 +1,33 @@
-﻿@model J.Entities.Single
+﻿    <fieldset>
+        <div id="e">
+        <div class="display-label">ESingleIntNumber：</div>
+        <div class="display-field"><input  type="text" id="ESingleIntNumber" name="ESingleIntNumber" style="width:295px;"/><br /><span id="ESingleIntNumber_notice"></span></div>
 
-@{
-    ViewBag.Title = "Edit";
-}
+        <div class="display-label">ESingleIntEnum：</div>
+        <div class="display-field"><input  type="text" id="ESingleIntEnum" name="ESingleIntEnum" style="width:295px;"/><br /><span id="ESingleIntEnum_notice"></span></div>
+    
+        <div class="display-label">ESingleMoney：</div>
+        <div class="display-field"><input  type="text" id="ESingleMoney" name="ESingleMoney" style="width:295px;"/><br /><span id="ESingleMoney_notice"></span></div>
 
-<h2>Edit</h2>
+        <div class="display-label">ESingleDatetime：</div>
+        <div class="display-field"><input  type="text" id="ESingleDatetime" name="ESingleDatetime" style="width:295px;"/><br /><span id="ESingleDatetime_notice"></span></div>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+        <div class="display-label">ESingleVarchar：</div>
+        <div class="display-field"><input  type="text" id="ESingleVarchar" name="ESingleVarchar" style="width:295px;"/><br /><span id="ESingleVarchar_notice"></span></div>
 
-    <fieldset>
-        <legend>Single</legend>
+        <div class="display-label">ESingleLongVarchar：</div>
+        <div class="display-field"><input  type="text" id="ESingleLongVarchar" name="ESingleLongVarchar" style="width:295px;"/><br /><span id="ESingleLongVarchar_notice"></span></div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleTinyintBool)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleTinyintBool)
-            @Html.ValidationMessageFor(model => model.SingleTinyintBool)
-        </div>
+        <div class="display-label">ESingleBit：</div>
+        <div class="display-field"><input  type="text" id="ESingleBit" name="ESingleBit" style="width:295px;"/><br /><span id="ESingleBit_notice"></span></div>
 
-        @Html.HiddenFor(model => model.ID)
+        <div class="display-label">ESingleTinyintBool：</div>
+        <div class="display-field"><input  type="text" id="ESingleTinyintBool" name="ESingleTinyintBool" style="width:295px;"/><br /><span id="ESingleTinyintBool_notice"></span></div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleIntNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleIntNumber)
-            @Html.ValidationMessageFor(model => model.SingleIntNumber)
-        </div>
+        <div class="display-label">ESingleTinyintEnum：</div>
+        <div class="display-field"><input  type="text" id="ESingleTinyintEnum" name="ESingleTinyintEnum" style="width:295px;"/><br /><span id="ESingleTinyintEnum_notice"></span></div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleMoney)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleMoney)
-            @Html.ValidationMessageFor(model => model.SingleMoney)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleDatetime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleDatetime)
-            @Html.ValidationMessageFor(model => model.SingleDatetime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleVarchar)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleVarchar)
-            @Html.ValidationMessageFor(model => model.SingleVarchar)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleLongVarchar)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleLongVarchar)
-            @Html.ValidationMessageFor(model => model.SingleLongVarchar)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleBit)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleBit)
-            @Html.ValidationMessageFor(model => model.SingleBit)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SingleText)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SingleText)
-            @Html.ValidationMessageFor(model => model.SingleText)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <div class="display-label">ESingleText：</div>
+        <div class="display-field"><input  type="text" id="ESingleText" name="ESingleText" style="width:295px;"/><br /><span id="ESingleText_notice"></span></div>
+     </div>
     </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

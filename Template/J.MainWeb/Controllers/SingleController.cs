@@ -33,38 +33,64 @@ namespace J.MainWeb.Controllers
         //
         // GET: /Single/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int singleIntNumber, int singleIntEnum, decimal singleMoney, DateTime singleDatetime,
+            string singleVarchar, string singleLongVarchar, int singleBit, int singleTinyintBool, int singleTinyintEnum, string singleText)
         {
-            return View();
-        }
-
-        //
-        // POST: /Single/Create
-
-        [HttpPost]
-        public ActionResult Create(J.Entities.Single single)
-        {
-            if (ModelState.IsValid)
+            try
             {
-                db.Singles.Add(single);
+                J.Entities.Single sg = new J.Entities.Single();
+                sg.SingleIntNumber = singleIntNumber;
+                sg.SingleIntEnum = (ESingleIntEnum)singleIntEnum;
+                sg.SingleMoney = singleMoney;
+                sg.SingleDatetime = singleDatetime;
+                sg.SingleVarchar = singleVarchar;
+                sg.SingleLongVarchar = singleLongVarchar;
+                sg.SingleBit = singleBit==1?true:false;
+                sg.SingleTinyintBool = singleTinyintBool!=0?true:false;
+                sg.SingleTinyintEnum = (ESingleTinyintEnum)singleTinyintEnum;
+                sg.SingleText = singleText;
+                db.Singles.Add(sg);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Content("Y");
             }
-
-            return View(single);
+            catch
+            {
+                return Content("N");
+            }
         }
+
 
         //
         // GET: /Single/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id, int singleIntNumber, ESingleIntEnum singleIntEnum, decimal singleMoney, DateTime singleDatetime,
+            string singleVarchar, string singleLongVarchar, bool singleBit, bool singleTinyintBool, ESingleTinyintEnum singleTinyintEnum, string singleText)
         {
-            J.Entities.Single single = db.Singles.Find(id);
-            if (single == null)
+            try
             {
-                return HttpNotFound();
+                J.Entities.Single sg = db.Singles.Where(a => a.ID == id).FirstOrDefault();
+                sg.SingleIntNumber = singleIntNumber;
+                sg.SingleIntEnum = singleIntEnum;
+                sg.SingleMoney = singleMoney;
+                sg.SingleDatetime = singleDatetime;
+                sg.SingleVarchar = singleVarchar;
+                sg.SingleLongVarchar = singleLongVarchar;
+                sg.SingleBit = singleBit;
+                sg.SingleTinyintBool = singleTinyintBool;
+                sg.SingleTinyintEnum =singleTinyintEnum;
+                sg.SingleText = singleText;
+                if (db.SaveChanges() > 0)
+                {
+                    return Content("Y");
+                }
+                else {
+                    return null;
+                }
             }
-            return View(single);
+            catch(Exception e)
+            {
+                return Content(e.Message.ToString());
+            }
         }
 
         //
@@ -76,6 +102,7 @@ namespace J.MainWeb.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(single).State = EntityState.Modified;
+                db.Singles.Attach(single);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

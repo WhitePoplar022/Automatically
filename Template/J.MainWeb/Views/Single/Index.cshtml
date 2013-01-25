@@ -6,6 +6,20 @@
 
 
 <script type="text/javascript">
+    var EID;
+    //验证输入的字符数        
+    function CheckLength(o) {
+        if (o.val().length == 0) {
+            o.addClass("ui-state-error"); //为当前错误添加
+            $("#" + o.attr("id") + "_notice").css("color", "red");
+            $("#" + o.attr("id") + "_notice").html("此项不能为空");
+            return false;
+        } else {
+            o.removeClass("ui-state-error");
+            $("#" + o.attr("id") + "_notice").html("");
+            return true;
+        }
+    }
     //查看详情
     function Detail(singleIntNumber,singleintEnum,singleMoney,singleDatetime,singleVarchar,
         singleLongVarchar, singleBit, singleTinyintBool, singleTinyintEnum, singleText,singleBinary) {
@@ -22,23 +36,203 @@
         $("#DSingleBinary").html(singleBinary);
         $("#detailSingle").dialog('open');
     }
-    $(function () {
-        //详情
-        $("#detailSingle").dialog({
-            maxHeight: 550,
-            maxWidth: 450,
-            minHeight: 550,
-            minWidth: 450,
-            bgiframe: true,
-            autoOpen: false,
-            modal: true
+    //新增
+    function Create() {
+        $("#c").find(":text").val("");
+        $("#createSingle").dialog('open');
+    }
+    //编辑
+    function Edit(id,singleIntNumber, singleintEnum, singleMoney, singleDatetime, singleVarchar,
+        singleLongVarchar, singleBit, singleTinyintBool, singleTinyintEnum, singleText) {
+            EID = id;
+            $("#ESingleIntNumber").val(singleIntNumber);
+            $("#ESingleIntEnum").val(singleintEnum);
+            $("#ESingleMoney").val(singleMoney);
+            $("#ESingleDatetime").val(singleDatetime);
+            $("#ESingleVarchar").val(singleVarchar);
+            $("#ESingleLongVarchar").val(singleLongVarchar);
+            $("#ESingleBit").val(singleBit);
+            $("#ESingleTinyintBool").val(singleTinyintBool);
+            $("#ESingleTinyintEnum").val(singleTinyintEnum);
+            $("#ESingleText").val(singleText);
+            $("#editSingle").dialog('open');
+    }
+        $(function () {
+            //新增页面属性
+            var SingleIntNumber = $("#SingleIntNumber");
+            var SingleIntEnum = $("#SingleIntEnum");
+            var SingleMoney = $("#SingleMoney");
+            var SingleDatetime = $("#SingleDatetime");
+            var SingleVarchar = $("#SingleVarchar");
+            var SingleLongVarchar = $("#SingleLongVarchar");
+            var SingleBit = $("#SingleBit");
+            var SingleTinyintBool = $("#SingleTinyintBool");
+            var SingleTinyintEnum = $("#SingleTinyintEnum");
+            var SingleText = $("#SingleText");
+            //var SingleBinary = $("#SingleBinary");
+            //新增页面属性
+            var ESingleIntNumber = $("#ESingleIntNumber");
+            var ESingleIntEnum = $("#ESingleIntEnum");
+            var ESingleMoney = $("#ESingleMoney");
+            var ESingleDatetime = $("#ESingleDatetime");
+            var ESingleVarchar = $("#ESingleVarchar");
+            var ESingleLongVarchar = $("#ESingleLongVarchar");
+            var ESingleBit = $("#ESingleBit");
+            var ESingleTinyintBool = $("#ESingleTinyintBool");
+            var ESingleTinyintEnum = $("#ESingleTinyintEnum");
+            var ESingleText = $("#ESingleText");
+
+            $("#createSingle").find("input:text").bind({
+                mousedown: function () {
+                    $(this).removeClass("ui-state-error");
+                    $("#" + this.id + "_notice").html("");
+                }
+            });
+            $("#editSingle").find("input:text").bind({
+                mousedown: function () {
+                    $(this).removeClass("ui-state-error");
+                    $("#" + this.id + "_notice").html("");
+                }
+            });
+
+            //新增
+            $("#createSingle").dialog({
+                maxHeight: 730,
+                maxWidth: 580,
+                minHeight: 730,
+                minWidth: 580,
+                bgiframe: true,
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    '确定': function () {
+                        var lengthConfirm = true;
+                        $("#c").find(":text").each(function () {
+                            if (!CheckLength($(this))) {
+                                lengthConfirm = false;
+                                return;
+                            }
+                        });
+                        if (lengthConfirm) {
+                            $.ajax({
+                                type: "get",
+                                cache: false,
+                                url: "@Url.Action("Create", "Single")",
+                                data: {
+                                    id:EID,
+                                    singleIntNumber: SingleIntNumber.val(),
+                                    singleIntEnum: SingleIntEnum.val(),
+                                    singleMoney: SingleMoney.val(),
+                                    singleDatetime: SingleDatetime.val(),
+                                    singleVarchar: SingleVarchar.val(),
+                                    singleLongVarchar: SingleLongVarchar.val(),
+                                    singleBit: SingleBit.val(),
+                                    singleTinyintBool: SingleTinyintBool.val(),
+                                    singleTinyintEnum: SingleTinyintEnum.val(),
+                                    singleText: SingleText.val()
+                                },
+                                success: function (data) {
+                                    if (data == "Y") {
+                                        window.location.reload();
+                                    }
+                                     else {
+                                        alert("新增失败!")
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    , '取消': function () {
+                        $("#c").find(":text").removeClass("ui-state-error");
+                        $("#c").find("span").html("");
+                        $(this).dialog('close');
+                    }
+                }
+            });
+
+            //#region 详情
+            $("#detailSingle").dialog({
+                maxHeight: 550,
+                maxWidth: 450,
+                minHeight: 550,
+                minWidth: 450,
+                bgiframe: true,
+                autoOpen: false,
+                modal: true
+            });
+            //#endregion
+
+
+            //#region编辑数据
+            $("#editSingle").dialog({
+                maxHeight: 730,
+                maxWidth: 580,
+                minHeight: 730,
+                minWidth: 580,
+                bgiframe: true,
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    '确定': function () {
+                        var lengthConfirm = true;
+                        $("#e").find(":text").each(function () {
+                            if (!CheckLength($(this))) {
+                                lengthConfirm = false;
+                                return;
+                            }
+                        });
+                        if (lengthConfirm) {
+				            $.ajax({
+				                type: "get",
+				                cache: false,
+				                url: "@Url.Action("Edit", "Single")",
+				                data: {
+				                    id:EID,
+				                    singleIntNumber: ESingleIntNumber.val(),
+				                    singleIntEnum: ESingleIntEnum.val(),
+				                    singleMoney: ESingleMoney.val(),
+				                    singleDatetime: ESingleDatetime.val(),
+				                    singleVarchar: ESingleVarchar.val(),
+				                    singleLongVarchar: ESingleLongVarchar.val(),
+				                    singleBit: ESingleBit.val()==true?1:0,
+				                    singleTinyintBool: ESingleTinyintBool.val()!=true?1:0,
+				                    singleTinyintEnum: ESingleTinyintEnum.val(),
+				                    singleText: ESingleText.val()
+				                },
+						        success: function (data) {
+						            if (data == "Y") {
+						                window.location.reload();
+						            } else if (data == "N") {
+						                alert("出现异常，编辑失败。")
+						            } else {
+                                        alert(data)
+						            }
+						        }
+					        });
+                        }
+				},
+			    '取消': function () {
+			        $("#e").find(":text").removeClass("ui-state-error");
+			        $("#e").find("span").html("");
+			        $(this).dialog('close');
+			    }
+			}
+            });
+            //#endregion
+
         });
-    });
 </script>
 
+<a href="javascript:Create()">创建新数据</a>
 
 <div id="detailSingle" title="详细" style="display: none; width: 100%;" class="ui-widget ui-widget-content ui-corner-all">
 	@Html.Partial("Details")
+</div>
+<div id="createSingle" title="新增" style="display: none; width: 100%;" class="ui-widget ui-widget-content ui-corner-all">
+	@Html.Partial("Create")
+</div>
+<div id="editSingle" title="编辑" style="display: none; width: 100%;" class="ui-widget ui-widget-content ui-corner-all">
+	@Html.Partial("Edit")
 </div>
 
 <table>
@@ -115,7 +309,8 @@
             @Html.DisplayFor(modelItem => item.SingleBinary)
         </td>
         <td>
-		    <a href= "javascript:Edit()">编辑</a>@("|")
+		    <a href= "javascript:Edit('@item.ID','@item.SingleIntNumber','@item.SingleIntEnum','@item.SingleMoney','@item.SingleDatetime',
+                '@item.SingleVarchar','@item.SingleLongVarchar','@item.SingleBit','@item.SingleTinyintBool','@item.SingleTinyintEnum','@item.SingleText','@item.SingleBinary')">编辑</a>@("|")
 		    <a href= "javascript:Detail('@item.SingleIntNumber','@item.SingleIntEnum','@item.SingleMoney','@item.SingleDatetime',
                 '@item.SingleVarchar','@item.SingleLongVarchar','@item.SingleBit','@item.SingleTinyintBool','@item.SingleTinyintEnum','@item.SingleText','@item.SingleBinary')">详细</a>@("|")
             <a href="javascript:Delete('@item.ID')">删除</a>
