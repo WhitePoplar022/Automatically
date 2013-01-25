@@ -1,0 +1,74 @@
+﻿@model J.Entities.Single
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Single</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleTinyintBool)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleTinyintBool)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleIntNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleIntNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleMoney)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleMoney)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleDatetime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleDatetime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleVarchar)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleVarchar)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleLongVarchar)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleLongVarchar)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleBit)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleBit)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SingleText)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SingleText)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

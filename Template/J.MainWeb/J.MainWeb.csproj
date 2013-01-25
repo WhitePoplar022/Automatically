@@ -131,6 +131,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParentController.cs" />
+    <Compile Include="Controllers\SingleController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,6 +222,11 @@
     <Content Include="Views\Parent\Create.cshtml" />
     <Content Include="Views\Parent\Edit.cshtml" />
     <Content Include="Views\Parent\Delete.cshtml" />
+    <Content Include="Views\Single\Index.cshtml" />
+    <Content Include="Views\Single\Details.cshtml" />
+    <Content Include="Views\Single\Create.cshtml" />
+    <Content Include="Views\Single\Edit.cshtml" />
+    <Content Include="Views\Single\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

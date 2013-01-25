@@ -1,0 +1,126 @@
+﻿@model IEnumerable<J.Entities.Single>
+
+@{
+    ViewBag.Title = "Single";
+}
+
+
+<script type="text/javascript">
+    //查看详情
+    function Detail(singleIntNumber,singleintEnum,singleMoney,singleDatetime,singleVarchar,
+        singleLongVarchar, singleBit, singleTinyintBool, singleTinyintEnum, singleText,singleBinary) {
+        $("#DSingleIntNumber").html(singleIntNumber);
+        $("#DSingleIntEnum").html(singleintEnum);
+        $("#DSingleMoney").html(singleMoney);
+        $("#DSingleDatetime").html(singleDatetime);
+        $("#DSingleVarchar").html(singleVarchar);
+        $("#DSingleLongVarchar").html(singleLongVarchar);
+        $("#DSingleBit").html(singleBit);
+        $("#DSingleTinyintBool").html(singleTinyintBool);
+        $("#DSingleTinyintEnum").html(singleTinyintEnum);
+        $("#DSingleText").html(singleText);
+        $("#DSingleBinary").html(singleBinary);
+        $("#detailSingle").dialog('open');
+    }
+    $(function () {
+        //详情
+        $("#detailSingle").dialog({
+            maxHeight: 550,
+            maxWidth: 450,
+            minHeight: 550,
+            minWidth: 450,
+            bgiframe: true,
+            autoOpen: false,
+            modal: true
+        });
+    });
+</script>
+
+
+<div id="detailSingle" title="详细" style="display: none; width: 100%;" class="ui-widget ui-widget-content ui-corner-all">
+	@Html.Partial("Details")
+</div>
+
+<table>
+    <tr>
+        <th>
+            SingleIntNumber
+        </th>
+        <th>
+            SingleIntEnum
+        </th>
+        <th>
+            SingleMoney
+        </th>
+        <th>
+            SingleDatetime
+        </th>
+        <th>
+            SingleVarchar
+        </th>
+        <th>
+           SingleLongVarchar
+        </th>
+        <th>
+            SingleBit
+        </th>
+        <th>
+           SingleTinyintBool
+        </th>
+        <th>
+            SingleTinyintEnum
+        </th>
+        <th>
+            SingleText
+        </th>
+        <th>
+            SingleBinary
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleIntNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleIntEnum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleMoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleDatetime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleVarchar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleLongVarchar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleBit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleTinyintBool)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleTinyintEnum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SingleBinary)
+        </td>
+        <td>
+		    <a href= "javascript:Edit()">编辑</a>@("|")
+		    <a href= "javascript:Detail('@item.SingleIntNumber','@item.SingleIntEnum','@item.SingleMoney','@item.SingleDatetime',
+                '@item.SingleVarchar','@item.SingleLongVarchar','@item.SingleBit','@item.SingleTinyintBool','@item.SingleTinyintEnum','@item.SingleText','@item.SingleBinary')">详细</a>@("|")
+            <a href="javascript:Delete('@item.ID')">删除</a>
+        </td>
+    </tr>
+}
+
+</table>

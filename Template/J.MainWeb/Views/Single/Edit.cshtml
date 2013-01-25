@@ -1,0 +1,93 @@
+﻿@model J.Entities.Single
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Single</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleTinyintBool)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleTinyintBool)
+            @Html.ValidationMessageFor(model => model.SingleTinyintBool)
+        </div>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleIntNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleIntNumber)
+            @Html.ValidationMessageFor(model => model.SingleIntNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleMoney)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleMoney)
+            @Html.ValidationMessageFor(model => model.SingleMoney)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleDatetime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleDatetime)
+            @Html.ValidationMessageFor(model => model.SingleDatetime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleVarchar)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleVarchar)
+            @Html.ValidationMessageFor(model => model.SingleVarchar)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleLongVarchar)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleLongVarchar)
+            @Html.ValidationMessageFor(model => model.SingleLongVarchar)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleBit)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleBit)
+            @Html.ValidationMessageFor(model => model.SingleBit)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SingleText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SingleText)
+            @Html.ValidationMessageFor(model => model.SingleText)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
