@@ -1,0 +1,78 @@
+﻿@model J.Entities.Parent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Parent</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentTinyintBool)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentTinyintBool)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GUID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GUID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentIntNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentIntNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentMoney)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentMoney)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentDatetime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentDatetime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentVarchar)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentVarchar)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentLongVarchar)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentLongVarchar)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentBit)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentBit)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentText)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentText)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

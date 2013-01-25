@@ -89,7 +89,8 @@ jQuery.extend({
             o = this.options;
             $(":checkbox", this.element).each(function () {
                 var spanId = $(this).attr("id") + "_ico";
-                if ($.browser.msie) { //IE浏览器
+                if (navigator.userAgent.indexOf("MSIE") > 0) { //IE浏览器
+                    //navigator.userAgent.indexOf("MSIE") > 0
                     $(this).after("<span class='jui-checkbox' id=" + spanId + "></span>");
                     if ($(this).next().next().attr("for")==$(this).attr("id")) {
                         $(this).next().next().attr("for", spanId);
@@ -233,7 +234,7 @@ jQuery.extend({
             $(":radio", this.element).each(function () {
 
                 var spanId = $(this).attr("id") + "_ico";
-                if ($.browser.msie) { //IE浏览器
+                if (navigator.userAgent.indexOf("MSIE") > 0) { //IE浏览器
                     $(this).after("<span class='jui-radio' id=" + spanId + "></span>");
                     if ($(this).next().next().attr("for") == $(this).attr("id")) {
                         $(this).next().next().attr("for", spanId);
@@ -831,7 +832,7 @@ Copyright (c) 2011 by Harvest
 
 	$.fn.extend({
 		chosen: function (options) {
-			if ($.browser.msie && ($.browser.version === "6.0" || ($.browser.version === "7.0" && document.documentMode === 7))) {
+			if (navigator.userAgent.indexOf("MSIE") > 0 && ($.browser.version === "6.0" || ($.browser.version === "7.0" && document.documentMode === 7))) {
 				return this;
 			}
 			return this.each(function (input_field) {
