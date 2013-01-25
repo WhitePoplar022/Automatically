@@ -29,14 +29,24 @@ namespace J.MainWeb
 			bundles.Add(new StyleBundle("~/Static/jquery-ui/css/files").Include(
 						"~/Static/jquery-ui/css/jquery-ui*"));
 
+			#region jUI
 			bundles.Add(new StyleBundle("~/Static/jUI/css/files").Include(
 			"~/Static/jUI/css/jui*"));
 
 			bundles.Add(new ScriptBundle("~/Static/jUI/js/files").Include(
 						"~/Static/jUI/js/jui*"));
+			#endregion
 
 			bundles.Add(new ScriptBundle("~/Static/extendjs/files").Include(
 						"~/Static/extendjs/extendjs*"));
+
+			#region uploadify
+			bundles.Add(new ScriptBundle("~/Static/uploadify/js").Include(
+						"~/Static/uploadify/jquery.uploadify-{version}.js"));
+			bundles.Add(new StyleBundle("~/Static/uploadify/css").Include(
+						"~/Static/uploadify/uploadify.css"));
+			#endregion
+
 		}
 	}
 }

@@ -189,6 +189,11 @@
     <Content Include="Static\modernizr\modernizr-2.6.2.js" />
     <Content Include="Static\reset.css" />
     <Content Include="Static\site.css" />
+    <Content Include="Static\uploadify\jquery.uploadify-3.1.js" />
+    <Content Include="Static\uploadify\jquery.uploadify-3.1.min.js" />
+    <Content Include="Static\uploadify\uploadify-cancel.png" />
+    <Content Include="Static\uploadify\uploadify.css" />
+    <Content Include="Static\uploadify\uploadify.swf" />
     <Content Include="Static\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -215,9 +220,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Static\uploadify\jquery.uploadify-3.1.min.js.map">
+      <DependentUpon>jquery.uploadify-3.1.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
