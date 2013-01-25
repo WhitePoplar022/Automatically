@@ -24,7 +24,7 @@ namespace J.MainWeb.Controllers
         }
         public ActionResult IndexList() {
 
-            return Json(db.Parents.ToList());
+            return Json(db.Parents.ToList(),JsonRequestBehavior.AllowGet);
         }
 
         //
