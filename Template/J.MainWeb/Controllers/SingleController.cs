@@ -63,21 +63,21 @@ namespace J.MainWeb.Controllers
         //
         // GET: /Single/Edit/5
 
-        public ActionResult Edit(int id, int singleIntNumber, ESingleIntEnum singleIntEnum, decimal singleMoney, DateTime singleDatetime,
-            string singleVarchar, string singleLongVarchar, bool singleBit, bool singleTinyintBool, ESingleTinyintEnum singleTinyintEnum, string singleText)
+        public ActionResult Edit(int id, int singleIntNumber, int singleIntEnum, decimal singleMoney, DateTime singleDatetime,
+            string singleVarchar, string singleLongVarchar, int singleBit, int singleTinyintBool, int singleTinyintEnum, string singleText)
         {
             try
             {
                 J.Entities.Single sg = db.Singles.Where(a => a.ID == id).FirstOrDefault();
                 sg.SingleIntNumber = singleIntNumber;
-                sg.SingleIntEnum = singleIntEnum;
+                sg.SingleIntEnum = (ESingleIntEnum)singleIntEnum;
                 sg.SingleMoney = singleMoney;
                 sg.SingleDatetime = singleDatetime;
                 sg.SingleVarchar = singleVarchar;
                 sg.SingleLongVarchar = singleLongVarchar;
-                sg.SingleBit = singleBit;
-                sg.SingleTinyintBool = singleTinyintBool;
-                sg.SingleTinyintEnum =singleTinyintEnum;
+                sg.SingleBit = singleBit==1?true:false;
+                sg.SingleTinyintBool = singleTinyintBool!=0?true:false;
+                sg.SingleTinyintEnum = (ESingleTinyintEnum)singleTinyintEnum;
                 sg.SingleText = singleText;
                 if (db.SaveChanges() > 0)
                 {
@@ -112,14 +112,15 @@ namespace J.MainWeb.Controllers
         //
         // GET: /Single/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
-            J.Entities.Single single = db.Singles.Find(id);
-            if (single == null)
+            J.Entities.Single single = db.Singles.Single(d => d.ID == id);
+            db.Singles.Remove(single);
+            if (db.SaveChanges() > 0)
             {
-                return HttpNotFound();
+                return Content("Y");
             }
-            return View(single);
+            return Content("N");
         }
 
         //
@@ -128,7 +129,7 @@ namespace J.MainWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            J.Entities.Single single = db.Singles.Find(id);
+            J.Entities.Single single = db.Singles.Single(d => d.ID == id);
             db.Singles.Remove(single);
             db.SaveChanges();
             return RedirectToAction("Index");

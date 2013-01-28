@@ -4203,9 +4203,9 @@ items:
 	        }
 	        //去样式
 	        var noCss = function () {
-	            $("#" + elementId + "_tb td a").each(function () {
+	            $("#" + elementId + "_tb td ").find("a").each(function () {
 	                var a = $(this);
-	                if (a.text() == "") {a.removeClass();}
+	                if (a.text() == "") { a.removeClass("jui-datetimepicker-table-tr-a"); }
 	            });
 	        }
 

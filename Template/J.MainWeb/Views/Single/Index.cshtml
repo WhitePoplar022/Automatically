@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Single";
 }
-
-
 <script type="text/javascript">
     var EID;
     //验证输入的字符数        
@@ -15,8 +13,20 @@
             $("#" + o.attr("id") + "_notice").html("此项不能为空");
             return false;
         } else {
+            //o.removeClass("ui-state-error");
+            //$("#" + o.attr("id") + "_notice").html("");
+            return true;
+        }
+    }
+    //验证是否为数字
+    function CheckNum(o) {
+        if (isNaN(o.val())) {
+            o.addClass("ui-state-error"); //为当前错误添加
+            $("#" + o.attr("id") + "_notice").css("color", "red");
+            $("#" + o.attr("id") + "_notice").html("请输入数字");
+            return false;
+        } else {
             o.removeClass("ui-state-error");
-            $("#" + o.attr("id") + "_notice").html("");
             return true;
         }
     }
@@ -36,10 +46,32 @@
         $("#DSingleBinary").html(singleBinary);
         $("#detailSingle").dialog('open');
     }
+    //删除数据
+    function Delete(id) {        
+        if (confirm("确定删除该条数据？")) {
+            $.ajax({
+                type: "get",
+                cache: false,
+                url: "@Url.Action("Delete","Single")",
+				            data: { id: id },
+				            success: function (data) {
+				                if (data == "Y") {
+				                    window.location.reload();
+				                } else if (data == "N") {
+				                    alert("删除失败!");
+				                }
+				            }
+            });
+        }
+    }
     //新增
     function Create() {
         $("#c").find(":text").val("");
         $("#createSingle").dialog('open');
+
+        $("#SingleDatetime").jdatetimepicker({
+            datetimeParse: "yyyy-MM-dd"
+        });
     }
     //编辑
     function Edit(id,singleIntNumber, singleintEnum, singleMoney, singleDatetime, singleVarchar,
@@ -56,8 +88,16 @@
             $("#ESingleTinyintEnum").val(singleTinyintEnum);
             $("#ESingleText").val(singleText);
             $("#editSingle").dialog('open');
+
+            $("#ESingleDatetime").jdatetimepicker({
+                datetimeParse: "yyyy-MM-dd"
+            });
     }
-        $(function () {
+
+
+    $(function () {
+
+        
             //新增页面属性
             var SingleIntNumber = $("#SingleIntNumber");
             var SingleIntEnum = $("#SingleIntEnum");
@@ -69,17 +109,19 @@
             var SingleTinyintBool = $("#SingleTinyintBool");
             var SingleTinyintEnum = $("#SingleTinyintEnum");
             var SingleText = $("#SingleText");
-            //var SingleBinary = $("#SingleBinary");
+        //var SingleBinary = $("#SingleBinary");
+            
+
             //新增页面属性
-            var ESingleIntNumber = $("#ESingleIntNumber");
-            var ESingleIntEnum = $("#ESingleIntEnum");
-            var ESingleMoney = $("#ESingleMoney");
+            var ESingleIntNumber = $("#ESingleIntNumber");//
+            var ESingleIntEnum = $("#ESingleIntEnum");//
+            var ESingleMoney = $("#ESingleMoney");//
             var ESingleDatetime = $("#ESingleDatetime");
             var ESingleVarchar = $("#ESingleVarchar");
             var ESingleLongVarchar = $("#ESingleLongVarchar");
             var ESingleBit = $("#ESingleBit");
-            var ESingleTinyintBool = $("#ESingleTinyintBool");
-            var ESingleTinyintEnum = $("#ESingleTinyintEnum");
+            var ESingleTinyintBool = $("#ESingleTinyintBool");//
+            var ESingleTinyintEnum = $("#ESingleTinyintEnum");//
             var ESingleText = $("#ESingleText");
 
             $("#createSingle").find("input:text").bind({
@@ -106,6 +148,10 @@
                 modal: true,
                 buttons: {
                     '确定': function () {
+                        var c = 0;
+                        if (!CheckNum(SingleIntNumber) || !CheckNum(SingleIntEnum) || !CheckNum(SingleMoney) || !CheckNum(SingleTinyintBool) || !CheckNum(SingleTinyintEnum)) {
+                            c += 1;
+                        }
                         var lengthConfirm = true;
                         $("#c").find(":text").each(function () {
                             if (!CheckLength($(this))) {
@@ -113,7 +159,7 @@
                                 return;
                             }
                         });
-                        if (lengthConfirm) {
+                        if (lengthConfirm && c==0) {
                             $.ajax({
                                 type: "get",
                                 cache: false,
@@ -235,42 +281,42 @@
 	@Html.Partial("Edit")
 </div>
 
-<table>
+<table style="width:100%;">
     <tr>
-        <th>
-            SingleIntNumber
+        <th style="width:5%;">
+            IntNumber
         </th>
-        <th>
-            SingleIntEnum
+        <th style="width:5%;">
+            IntEnum
         </th>
-        <th>
-            SingleMoney
+        <th style="width:10%;">
+            Money
         </th>
-        <th>
-            SingleDatetime
+        <th style="width:15%;"> 
+            Datetime
         </th>
-        <th>
-            SingleVarchar
+        <th style="width:10%;">
+            Varchar
         </th>
-        <th>
-           SingleLongVarchar
+        <th style="width:5%;">
+           LongVarchar
         </th>
-        <th>
-            SingleBit
+        <th style="width:5%;">
+            Bit
         </th>
-        <th>
-           SingleTinyintBool
+        <th style="width:5%;">
+           TinyintBool
         </th>
-        <th>
-            SingleTinyintEnum
+        <th style="width:5%;">
+            TinyintEnum
         </th>
-        <th>
-            SingleText
+        <th style="width:5%;">
+            Text
         </th>
-        <th>
-            SingleBinary
+        <th style="width:5%;">
+            Binary
         </th>
-        <th></th>
+        <th style="width:25%;"></th>
     </tr>
 
 @foreach (var item in Model) {
