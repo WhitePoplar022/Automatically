@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using J.Entities;
+using System.IO;
 
 namespace J.MainWeb.Controllers
 {
@@ -23,6 +24,23 @@ namespace J.MainWeb.Controllers
 			//}
 
 			return View();
+		}
+
+		[HttpPost]
+		public ActionResult UploadFile()
+		{
+			HttpPostedFileBase file = Request.Files["Filedata"]; //获取单独文件的访问
+			var fileGuid = Guid.NewGuid().ToString();//生成随机的guid
+			if (file != null)
+			{
+				var uploadPath = Server.MapPath("~/Files") + "/Temp/" + fileGuid;
+				if (!Directory.Exists(uploadPath))
+				{ //判断上传的文件夹是否存在 
+					Directory.CreateDirectory(uploadPath);
+				}
+				file.SaveAs(uploadPath + '/' + file.FileName);
+			}
+			return Content(fileGuid);
 		}
 	}
 }
