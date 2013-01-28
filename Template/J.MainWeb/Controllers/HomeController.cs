@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 using J.Entities;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace J.MainWeb.Controllers
 {
@@ -31,16 +33,24 @@ namespace J.MainWeb.Controllers
 		{
 			HttpPostedFileBase file = Request.Files["Filedata"]; //获取单独文件的访问
 			var fileGuid = Guid.NewGuid().ToString();//生成随机的guid
-			if (file != null)
+			try
 			{
-				var uploadPath = Server.MapPath("~/Files") + "/Temp/" + fileGuid;
-				if (!Directory.Exists(uploadPath))
-				{ //判断上传的文件夹是否存在 
-					Directory.CreateDirectory(uploadPath);
+				if (file != null)
+				{
+					var uploadPath = Server.MapPath("~/Files") + "/Temp/" + fileGuid;
+					if (!Directory.Exists(uploadPath))
+					{ //判断上传的文件夹是否存在 
+						Directory.CreateDirectory(uploadPath);
+					}
+					file.SaveAs(uploadPath + '/' + file.FileName);
+					return Content(JsonConvert.SerializeObject(new { state = "success", msg = fileGuid }));
 				}
-				file.SaveAs(uploadPath + '/' + file.FileName);
+				return Content(JsonConvert.SerializeObject(new { state = "error", msg = "文件不存在，请重新上传！" }));
 			}
-			return Content(fileGuid);
+			catch (Exception e)
+			{
+				return Content(JsonConvert.SerializeObject(new { state = "error", msg = e.Message }));
+			}
 		}
 	}
 }
