@@ -3,66 +3,19 @@
 	$(function ()
 	{
 		$("#file_upload").uploadify({
-			//'auto':false,
+			//'auto':false,								//禁止自动上传
 			'multi': false,								//禁止多个同时上传
-			'buttonText': "选择并上传文件",
-			'fileTypeDesc' : '图片文件',
-			'fileTypeExts' : '*.jpg; *.png',
+			'buttonText': "选择并上传文件",				//按钮上的文字
+			'fileTypeDesc' : '图片文件',					//文件类型描述
+			'fileTypeExts' : '*.jpg; *.png',			//文件类型后缀
 			'swf': '/Static/uploadify/uploadify.swf',	//'@Url.Content("~/Static/uploadify/uploadify.swf")'
 			'uploader': '/Home/UploadFile',				//'@Url.Action("UploadFile", "Home")'
-			'onSelect' : function(file) {
-				alert('选择文件：' + file.name);
-			},
-			'onUploadError' : function(file, errorCode, errorMsg, errorString) {
-				alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
-			},
-			'onUploadComplete': function (file)
-			{
-				alert('上传成功：' + file.name);
-			},
 			'onUploadSuccess': function (file, data, response)
 			{
-				alert('File Name:' + file.name + '\nFile GUID:' + data);
+				var dataobj = JSON.parse(data);
+				alert("文件名：" + file + "\nState(success或error):" + dataobj.state + "\nmsg(GUID或错误信息):" + dataobj.msg);
 			},
-			'removeCompleted' : false
+			'removeCompleted' : false					//上传完成后不自动清除列表(可删除本行使得界面简洁)
 		});
 	});
-
-
-	@*$('#file_upload').uploadify({
-		'uploader': '@Url.Content("~/Static/uploadifyuploadify.swf")',
-		'expressInstall': '@Url.Content("~/Scripts/Controls/uploadify/expressInstall.swf")',
-		'cancelImg': '@Url.Content("~/Scripts/Controls/uploadify/cancel.png")',
-		'script': '@Url.Action("UploadFile", "File")',
-		'scriptData': { h: $("spanH").text(), w: $("spanW").text() },
-		'folder': '~/Files',
-		'buttonText': '选择文件',
-		'queueID': 'fileQueue',
-		'auto': false,
-		'multi': true,
-		'fileExt': '*.jpg;*.jpeg;*.png;*.gif',
-		'fileDesc': '图片(jpg,jpeg,png,gif)',
-		'sizeLimit': 1024 * 1024 * 2, //2M
-
-		'onComplete': function (event, ID, fileObj, response, data)
-		{
-			//文件名： fileObj.name
-			//GUID： response
-			var uploadifyID = event.target.id;
-			var count = parseInt($("#" + uploadifyID + "_count").val());
-			$("form:first").append("<input type='text' name='" + uploadifyID + "_guid_" + count + "' value='" + response + "'>");
-			$("#" + uploadifyID + "_count").val(++count);
-			$("#" + uploadifyID + "_uploaded").append("<div id='" + uploadifyID + "_uploaded_" + ID + "' class='uploadifyQueueItem'><span class='fileName'>" + fileObj.name + "(" + fileObj.size + ") " + data.speed + "KB/s</span></div>")
-
-		},
-		'onAllComplete': function (event, data)
-		{
-		},
-		'onInit': function ()
-		{
-			var uploadifyID = this.id;
-			$("form:first").append("<input type='text' id='" + uploadifyID + "_count' name='" + uploadifyID + "_count' value='0'>");
-			$("<div id='" + uploadifyID + "_uploaded' class='completed'></div><br />").insertBefore($("#" + this.queueID));
-		}
-	});*@
 </script>

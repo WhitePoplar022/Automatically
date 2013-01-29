@@ -172,6 +172,7 @@
     <None Include="Static\jquery\jquery-1.9.0.intellisense.js" />
     <Content Include="Static\jquery\jquery-1.9.0.js" />
     <Content Include="Static\jquery\jquery-1.9.0.min.js" />
+    <Content Include="Static\json2\json2.js" />
     <Content Include="Static\jUI\css\jui.css" />
     <Content Include="Static\jUI\images\jui-icons_094ab2_78x84.png" />
     <Content Include="Static\jUI\images\jui-icons_0d0d0d_78x84.png" />
