@@ -52,5 +52,10 @@ namespace J.MainWeb.Controllers
 				return Content(JsonConvert.SerializeObject(new { state = "error", msg = e.Message }));
 			}
 		}
+
+		public ActionResult UploadFileDemo()
+		{
+			return View();
+		}
 	}
 }

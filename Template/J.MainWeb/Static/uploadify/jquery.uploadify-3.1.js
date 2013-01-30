@@ -96,24 +96,24 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 				var settings = $.extend({
 					// Required Settings
 					id       : $this.attr('id'), // The ID of the DOM object
-					swf      : 'uploadify.swf',  // The path to the uploadify SWF file
-					uploader : 'uploadify.php',  // The path to the server-side upload script
+					swf: '/Static/uploadify/uploadify.swf',  // The path to the uploadify SWF file	//'@Url.Content("~/Static/uploadify/uploadify.swf")'
+					uploader: '/Home/UploadFile',  // The path to the server-side upload script		//'@Url.Action("UploadFile", "Home")'
 					
 					// Options
 					auto            : true,               // Automatically upload files when added to the queue
 					buttonClass     : '',                 // A class name to add to the browse button DOM object
 					buttonCursor    : 'hand',             // The cursor to use with the browse button
 					buttonImage     : null,               // (String or null) The path to an image to use for the Flash browse button if not using CSS to style the button
-					buttonText      : 'SELECT FILES',     // The text to use for the browse button
+					buttonText: '选择文件',     // The text to use for the browse button
 					checkExisting   : false,              // The path to a server-side script that checks for existing files on the server
 					debug           : false,              // Turn on swfUpload debugging mode
 					fileObjName     : 'Filedata',         // The name of the file object to use in your server-side script
-					fileSizeLimit   : 0,                  // The maximum size of an uploadable file in KB (Accepts units B KB MB GB if string, 0 for no limit)
-					fileTypeDesc    : 'All Files',        // The description for file types in the browse dialog
+					fileSizeLimit: '4MB',                  // The maximum size of an uploadable file in KB (Accepts units B KB MB GB if string, 0 for no limit)
+					fileTypeDesc: '所有文件',        // The description for file types in the browse dialog
 					fileTypeExts    : '*.*',              // Allowed extensions in the browse dialog (server-side validation should also be used)
 					height          : 30,                 // The height of the browse button
 					method          : 'post',             // The method to use when sending files to the server-side upload script
-					multi           : true,               // Allow multiple file selection in the browse dialog
+					multi: false,               // Allow multiple file selection in the browse dialog
 					formData        : {},                 // An object with additional data to send to the server-side upload script with every file upload
 					preventCaching  : true,               // Adds a random value to the Flash URL to prevent caching of it (conflicts with existing parameters)
 					progressData    : 'percentage',       // ('percentage' or 'speed') Data to show in the queue item during a file upload
@@ -278,7 +278,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 						uploadSize         : 0, // The size in bytes of the upload queue
 						queueBytesUploaded : 0, // The size in bytes that have been uploaded for the current upload queue
 						uploadQueue        : [], // The files currently to be uploaded
-						errorMsg           : 'Some files were not added to the queue:'
+						errorMsg: '一些文件未被加入到队列：'
 					};
 
 					// Save references to all the objects
@@ -568,7 +568,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 			var settings = this.settings;
 
 			// Reset some queue info
-			this.queueData.errorMsg       = 'Some files were not added to the queue:';
+			this.queueData.errorMsg = '一些文件未被加入到队列：';
 			this.queueData.filesReplaced  = 0;
 			this.queueData.filesCancelled = 0;
 
@@ -677,19 +677,19 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 				switch(errorCode) {
 					case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
 						if (settings.queueSizeLimit > errorMsg) {
-							this.queueData.errorMsg += '\nThe number of files selected exceeds the remaining upload limit (' + errorMsg + ').';
+							this.queueData.errorMsg += '\n所选文件的数量超过剩余的上传限制数量 (' + errorMsg + ').';
 						} else {
-							this.queueData.errorMsg += '\nThe number of files selected exceeds the queue size limit (' + settings.queueSizeLimit + ').';
+							this.queueData.errorMsg += '\n所选文件的数量超过了队列大小限制 (' + settings.queueSizeLimit + ').';
 						}
 						break;
 					case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
-						this.queueData.errorMsg += '\nThe file "' + file.name + '" exceeds the size limit (' + settings.fileSizeLimit + ').';
+						this.queueData.errorMsg += '\n文件 "' + file.name + '" 超过大小限制 (' + settings.fileSizeLimit + ').';
 						break;
 					case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
-						this.queueData.errorMsg += '\nThe file "' + file.name + '" is empty.';
+						this.queueData.errorMsg += '\n文件 "' + file.name + '" 为空文件.';
 						break;
 					case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
-						this.queueData.errorMsg += '\nThe file "' + file.name + '" is not an accepted file type (' + settings.fileTypeDesc + ').';
+						this.queueData.errorMsg += '\n文件 "' + file.name + '" 不是允许的文件类型 (' + settings.fileTypeDesc + ').';
 						break;
 				}
 			}
@@ -796,7 +796,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 					errorString = 'Security Error';
 					break;
 				case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
-					alert('The upload limit has been reached (' + errorMsg + ').');
+					//alert('The upload limit has been reached (' + errorMsg + ').');
 					errorString = 'Exceeds Upload Limit';
 					break;
 				case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:

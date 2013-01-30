@@ -158,6 +158,7 @@
     <Content Include="Static\jquery-ui\images\ui-icons_454545_256x240.png" />
     <Content Include="Static\jquery-ui\images\ui-icons_888888_256x240.png" />
     <Content Include="Static\jquery-ui\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Static\jquery-ui\js\i18n\jquery.ui.datepicker-zh-CN.js" />
     <Content Include="Static\jquery-ui\js\jquery-ui-1.10.0.js" />
     <Content Include="Static\jquery-ui\js\jquery-ui-1.10.0.min.js" />
     <Content Include="NLog.config">
@@ -194,6 +195,7 @@
     <Content Include="Static\site.css" />
     <Content Include="Static\uploadify\jquery.uploadify-3.1.js" />
     <Content Include="Static\uploadify\jquery.uploadify-3.1.min.js" />
+    <Content Include="Static\uploadify\jquery.uploadify.localization-3.1.js" />
     <Content Include="Static\uploadify\uploadify-cancel.png" />
     <Content Include="Static\uploadify\uploadify.css" />
     <Content Include="Static\uploadify\uploadify.swf" />
@@ -231,11 +233,15 @@
     <Content Include="Views\Parent\Create.cshtml" />
     <Content Include="Views\Parent\Edit.cshtml" />
     <Content Include="Views\Parent\Delete.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Single\Index.cshtml" />
     <Content Include="Views\Single\Details.cshtml" />
     <Content Include="Views\Single\Create.cshtml" />
     <Content Include="Views\Single\Edit.cshtml" />
     <Content Include="Views\Single\Delete.cshtml" />
+=======
+    <Content Include="Views\Home\UploadFileDemo.cshtml" />
+>>>>>>> 869e18ee2529e0c98209a0621ae166f8ad651ebd
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,16 +6,19 @@
 			//'auto':false,								//禁止自动上传
 			'multi': false,								//禁止多个同时上传
 			'buttonText': "选择并上传文件",				//按钮上的文字
-			'fileTypeDesc' : '图片文件',					//文件类型描述
-			'fileTypeExts' : '*.jpg; *.png',			//文件类型后缀
+			'fileTypeDesc': '图片文件',					//文件类型描述
+			'fileTypeExts': '*.jpg; *.png',				//文件类型后缀
+			'fileSizeLimit': '4MB',						//文件限制
+			'uploadLimit': 1,							//上传数量限制，超过引发 onUploadError
+			'progressData': 'speed',					//上传时显示的数据方式，percentage:百分比，speed：上传速度
 			'swf': '/Static/uploadify/uploadify.swf',	//'@Url.Content("~/Static/uploadify/uploadify.swf")'
 			'uploader': '/Home/UploadFile',				//'@Url.Action("UploadFile", "Home")'
 			'onUploadSuccess': function (file, data, response)
 			{
 				var dataobj = JSON.parse(data);
-				alert("文件名：" + file + "\nState(success或error):" + dataobj.state + "\nmsg(GUID或错误信息):" + dataobj.msg);
+				alert("文件名：" + file.name + "\nState(success或error):" + dataobj.state + "\nmsg(GUID或错误信息):" + dataobj.msg);
 			},
-			'removeCompleted' : false					//上传完成后不自动清除列表(可删除本行使得界面简洁)
+			'removeCompleted': false					//上传完成后不自动清除列表(可删除本行使得界面简洁)
 		});
 	});
 </script>
