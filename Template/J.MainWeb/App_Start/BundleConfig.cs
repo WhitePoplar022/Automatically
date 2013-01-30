@@ -46,7 +46,8 @@ namespace J.MainWeb
 
 			#region jquery ui
 			bundles.Add(new ScriptBundle("~/Static/jquery-ui/js/files").Include(
-						"~/Static/jquery-ui/js/jquery-ui-{version}.js"));
+						"~/Static/jquery-ui/js/jquery-ui-{version}.js",
+						"~/Static/jquery-ui/js/i18n/jquery.ui.datepicker-zh-CN.js"));
 			#endregion
 
 			#region jquery validate

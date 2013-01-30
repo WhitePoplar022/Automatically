@@ -1,0 +1,59 @@
+﻿@{
+	ViewBag.Title = "UploadFileDemo";
+}
+
+<h2>Upload File Demo</h2>
+
+<span>这个是自己处理错误信息的写法</span><input type="file" id="file_upload" name="file_upload" />
+
+<span>这个最简洁的写法</span><input type="file" id="file_upload2" name="file_upload2" />
+
+<script type="text/javascript" src="~/Static/uploadify/jquery.uploadify.localization-3.1.js"></script>
+<script type="text/javascript">
+	$(function ()
+	{
+		$("#file_upload").uploadify({
+			//'auto':false,								//禁止自动上传
+			'buttonText': "选择并上传文件",				//按钮上的文字
+			'fileTypeDesc': '图片文件',					//文件类型描述
+			'fileTypeExts': '*.jpg; *.png',				//文件类型后缀
+			'fileSizeLimit': '4MB',						//文件限制
+			//'uploadLimit': 1,							//上传数量限制，超过引发 onUploadError
+			'queueSizeLimit': 1,						//队列数量限制，超过引发 onSelectError 
+			'progressData': 'speed',					//上传时显示的数据方式，percentage:百分比，speed：上传速度
+			'onUploadSuccess': function (file, data, response)
+			{
+				var dataobj = JSON.parse(data);
+				alert("文件名：" + file.name + "\n文件大小：" + file.size + "\nState(success或error)：" + dataobj.state + "\nmsg(GUID或错误信息)：" + dataobj.msg);
+			},
+			'overrideEvents': ['onDialogClose'],		//跳过的原始事件(这里我们要处理alert出来的Error错误)
+			'onDialogClose': function (queueData)
+			{
+				//filesSelected		The number of files selected in browse files dialog
+				//filesQueued		The number of files added to the queue (that didn’t return an error)
+				//filesReplaced		The number of files replaced in the queue
+				//filesCancelled	The number of files that were cancelled from being added to the queue (not replaced)
+				//filesErrored		The number of files that returned an error
+				if (queueData.filesErrored > 0)
+				{
+					alert(queueData.errorMsg);
+				}
+			},
+
+			'removeCompleted': false					//上传完成后不自动清除列表(可删除本行使得界面简洁)
+		});
+
+		$("#file_upload2").uploadify({
+			//'auto':false,								//禁止自动上传
+			'fileTypeDesc': '图片文件',					//文件类型描述
+			'fileTypeExts': '*.jpg; *.png',				//文件类型后缀
+			'onUploadSuccess': function (file, data, response)
+			{
+				var dataobj = JSON.parse(data);
+				alert("文件名：" + file.name + "\n文件大小：" + file.size + "\nState(success或error)：" + dataobj.state + "\nmsg(GUID或错误信息)：" + dataobj.msg);
+			},
+			'removeCompleted': false					//上传完成后不自动清除列表(可删除本行使得界面简洁)
+		});
+	});
+</script>
+
