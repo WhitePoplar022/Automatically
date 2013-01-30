@@ -233,15 +233,12 @@
     <Content Include="Views\Parent\Create.cshtml" />
     <Content Include="Views\Parent\Edit.cshtml" />
     <Content Include="Views\Parent\Delete.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Single\Index.cshtml" />
     <Content Include="Views\Single\Details.cshtml" />
     <Content Include="Views\Single\Create.cshtml" />
     <Content Include="Views\Single\Edit.cshtml" />
     <Content Include="Views\Single\Delete.cshtml" />
-=======
     <Content Include="Views\Home\UploadFileDemo.cshtml" />
->>>>>>> 869e18ee2529e0c98209a0621ae166f8ad651ebd
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
