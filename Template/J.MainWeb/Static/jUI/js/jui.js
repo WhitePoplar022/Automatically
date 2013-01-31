@@ -2592,7 +2592,7 @@ items:
 		                //    maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto"
 		                //}
 	        ],//列
-	        onSortChange:null,
+	        onSortChange: null,
 	        sortItem: { sortColumn: "", sortType: "" }
 	    },
 
@@ -2616,7 +2616,7 @@ items:
 	        } else {
 	            var tableId = $(this.element).attr("id");
 
-                //生成表框架
+	            //生成表框架
 	            $(this.element).empty().append(
                     "<table class='jui-table' id='" + tableId + "_tableSorter' style='width:" + o.tableWidth + ";height:" + o.tableHeight + ";'>" +
                     "<thead class='jui-table-head'><tr></tr></thead><tbody></tbody>" +
@@ -2629,13 +2629,13 @@ items:
 	            }
 	            dataArray.sort(this._sortNum).reverse();
 
-                //生成表头
+	            //生成表头
 	            var g, short_g_head;
 	            for (var j in o.columns) {
 	                var g = o.columns[j];
 	                var g_head = g["head"];
 	                var g_maxLength = g["maxLength"];
-	                if (g_head.length > g_maxLength && g_maxLength !=0) {
+	                if (g_head.length > g_maxLength && g_maxLength != 0) {
 	                    short_g_head = g_head.substring(0, g_maxLength) + "...";
 	                } else {
 	                    short_g_head = g_head;
@@ -2655,7 +2655,7 @@ items:
                         + "; width: " + g_width + ";padding-left: 2px; padding-right: 2px;padding-top:5px;padding-bottom:5px;'>"
                         + "<div id='" + tableId + g_head + "' style='position:relative;'>" +
                         "<span style='cursor:default;display:inline-block;' title='" + g_head + "'>" + short_g_head + "</span>"
-                        +"</div>"+
+                        + "</div>" +
                         "</td>"
                         );
 	                if (g_sortColumn != "" && g_sortColumn != null) {
@@ -2669,14 +2669,14 @@ items:
 	                        } else if (sortItem["sortType"] == "asc" || sortItem["sortType"] == "" || sortItem["sortType"] == null) {
 	                            $("#" + tableId + g_head2).append("<span class='ui-icon ui-icon-triangle-1-n' style='position:absolute;display:inline-block;right:0px;top:2px;'></span>").css("cursor", "pointer");
 	                        }
-	                    }	                    
+	                    }
 	                }
 	            }
 	            var span_n = "<span class='ui-icon ui-icon-triangle-1-n' style='position:absolute;display:inline-block;right:0px;top:2px;cursor:pointer;'></span>";
 	            var span_s = "<span class='ui-icon ui-icon-triangle-1-s' style='position:absolute;display:inline-block;right:0px;top:2px;cursor:pointer;'></span>";
 	            $("#" + tableId + "_tableSorter thead tr").children("td").each(function () {
 	                var t = $(this);
-	                var text = t.children("div").children("span:eq(0)").text();
+	                var text = t.children("div").children("span:eq(0)").attr("title");
 	                var column, sort;
 	                for (var c in o.columns) {
 	                    if (o.columns[c]["head"] == text) {
@@ -2690,7 +2690,7 @@ items:
 	                        if (flag2) {
 	                            $(".ui-icon-triangle-1-s").replaceWith("<span class='ui-icon ui-icon-triangle-2-n-s' style='position:absolute;display:inline-block;right:0px;top:2px;'></span>");
 	                            $(".ui-icon-triangle-1-n").replaceWith("<span class='ui-icon ui-icon-triangle-2-n-s' style='position:absolute;display:inline-block;right:0px;top:2px;'></span>");
-	                            
+
 	                            if (column != sortItem["sortColumn"]) {
 	                                if (sort == "desc") {
 	                                    $(this).children("span:eq(1)").replaceWith("<span class='ui-icon ui-icon-triangle-1-s' style='position:absolute;display:inline-block;right:0px;top:2px;cursor:pointer;'></span>");
@@ -2736,7 +2736,7 @@ items:
 	                }
 	            });
 
-                //生成表格
+	            //生成表格
 	            var v, short_v_head;
 	            for (var i = 0; i < o.data.length; i++) {
 	                $("#" + tableId + "_tableSorter tbody").append("<tr></tr>"); //行
@@ -2755,12 +2755,13 @@ items:
 	                        var t = "#" + dataArray[r];
 	                        v_context = v_context.replace2(t, o.data[i][dataArray[r]]);
 	                    }
-                        //排除操作列
-	                    if (v_context.length > v_maxLength && !v_context.startsWith("<") && v_maxLength!=0) {
+                        
+	                    //排除操作列
+	                    if (v_context.length > v_maxLength && !v_context.startsWith("<") && v_maxLength != 0) {
 	                        short_v_head = v_context.substring(0, v_maxLength) + "...";
 	                    } else {
 	                        short_v_head = v_context;
-	                        if(v_context.startsWith("<")){
+	                        if (v_context.startsWith("<")) {
 	                            isLink = true;
 	                        }
 	                    }
@@ -2776,12 +2777,12 @@ items:
                             + "; width: " + v_width + ";padding-left: 2px; padding-right: 2px;padding-top:5px;padding-bottom:5px;'><span style='cursor:default;' title='" + v_context + "'>" + short_v_head + "</span></td>"); //列 
 	                    }
 	                }
-                    //隐藏域保存行ID
+	                //隐藏域保存行ID
 	                $("#" + tableId + "_tableSorter tbody tr:eq(" + i + ") td:eq(0)").prepend("<span style='display:none;'>" + o.data[i]["ID"] + "</span>");
 	            }
 
 
-                //首列添加图标
+	            //首列添加图标
 	            var table = $("#" + tableId + "_tableSorter");
 
 	            //*********表格行样式切换
@@ -2793,38 +2794,41 @@ items:
 	            singleTr.addClass("jui-table-odd");
 	            doubleTr.addClass("jui-table-even");
 	            var hoverClassToggle = function (obj) {
+	                //if (obj.attr("Lock") == "false") {
 	                obj.mouseover(function () {
-	                    if ($(this).attr("Lock") == "false") {
-	                        $(this).removeClass().addClass("jui-table-hover");
+	                        if ($(this).attr("Lock") == "false") {
+	                            $(this).attr("class", "").addClass("jui-table-hover");
+	                        }
+	                    });
+	                    if (obj == singleTr) {
+	                        obj.mouseout(function () {
+	                            if ($(this).attr("Lock") == "false") {
+	                                $(this).attr("class", "").addClass("jui-table-odd");
+	                            }
+	                        });
+	                    } else if (obj == doubleTr) {
+	                        obj.mouseout(function () {
+	                            if ($(this).attr("Lock") == "false") {
+	                                $(this).attr("class", "").addClass("jui-table-even");
+	                            }
+	                        });
 	                    }
-	                });
-	                if (obj == singleTr) {
-	                    obj.mouseout(function () {
-	                        if ($(this).attr("Lock") == "false") {
-	                            $(this).removeClass().addClass("jui-table-odd");
-	                        }
-	                    });
-	                } else if (obj == doubleTr) {
-	                    obj.mouseout(function () {
-	                        if ($(this).attr("Lock") == "false") {
-	                            $(this).removeClass().addClass("jui-table-even");
-	                        }
-	                    });
-	                }
+
+	                //}
 	            }
 	            hoverClassToggle(singleTr);
 	            hoverClassToggle(doubleTr);
 	            $tr.mousedown(function () {
 	                singleTr.attr("Lock", "false").removeClass("jui-table-Active").addClass("jui-table-odd");
 	                doubleTr.attr("Lock", "false").removeClass("jui-table-Active").addClass("jui-table-even");
-	                $(this).attr("Lock", "true").removeClass().addClass("jui-table-Active");
+	                $(this).attr("Lock", "true").attr("class", "").addClass("jui-table-Active");
 	            });
 	        }
 	    },
-        //返回选中行数据
+	    //返回选中行数据
 	    currentData: function () {
 	        var o = this.options;
-	        var checkedRoll="";
+	        var checkedRoll = "";
 	        var checkedRollId = $(this.element).find(".jui-table-Active").find("td:eq(0)").find("span:eq(0)").text();
 	        for (var i = 0; i < o.data.length; i++) {
 	            if (o.data[i]["ID"] == checkedRollId) {
@@ -4203,9 +4207,9 @@ items:
 	        }
 	        //去样式
 	        var noCss = function () {
-	            $("#" + elementId + "_tb td a").each(function () {
+	            $("#" + elementId + "_tb td ").find("a").each(function () {
 	                var a = $(this);
-	                if (a.text() == "") {a.removeClass();}
+	                if (a.text() == "") { a.removeClass("jui-datetimepicker-table-tr-a"); }
 	            });
 	        }
 
@@ -4291,8 +4295,9 @@ items:
 	                    if ($(this).text() == d && act_y == y && (act_m == m))
 	                        $(this).removeClass("jui-datetimepicker-table-tr-a").addClass("jui-datetimepicker-now ");
 	                } else {
-	                    if ($(this).text() == date.getDate() && act_y == date.getFullYear() && (act_m == date.getMonth()))
+	                    if ($(this).text() == date.getDate() && act_y == date.getFullYear() && (act_m == date.getMonth())) {
 	                        $(this).removeClass("jui-datetimepicker-table-tr-a").addClass("jui-datetimepicker-now ");
+	                    }
 	                }
 	            });
 	        }
@@ -4558,7 +4563,7 @@ items:
 	                } else {
 	                    $("#" + elementId + "_btn_m").attr("value", btn_m_val - 1)
 	                }
-	                $("#" + elementId + "_tb a").text("");//清空
+	                $("#" + elementId + "_tb a").text("").removeClass("jui-datetimepicker-now");//清空
 	                writeDate();
 	                choseDate();
 	                setVal();
@@ -4577,7 +4582,7 @@ items:
 	                    $("#" + elementId + "_btn_m").attr("value", "01");
 	                    $("#" + elementId + "_btn_y").attr("value", btn_y_val + 1);
 	                }
-	                $("#" + elementId + "_tb a").text("");//清空
+	                $("#" + elementId + "_tb a").text("").removeClass("jui-datetimepicker-now");//清空
 	                writeDate();
 	                choseDate();
 	                setVal();
