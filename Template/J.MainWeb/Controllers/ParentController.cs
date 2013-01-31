@@ -9,7 +9,7 @@ using J.Entities;
 
 namespace J.MainWeb.Controllers
 {
-    public class ParentController :Controller
+    public class ParentController : Controller
     {
         private DBEntities db = new DBEntities();
 
@@ -18,13 +18,31 @@ namespace J.MainWeb.Controllers
 
         public ActionResult Index()
         {
-
-
             return View(db.Parents.ToList());
         }
-        public ActionResult IndexList() {
+        public ActionResult IndexList(int PageSize, int PageIndex)
+        {
 
-            return Json(db.Parents.ToList(),JsonRequestBehavior.AllowGet);
+            int RecordCount = db.Parents.Count();
+            if (RecordCount <= (PageIndex - 1) * PageSize)
+                PageIndex = 1;
+            var ParentList = db.Parents.Select(p => new
+                                                {
+                                                    GUID = p.GUID,
+                                                    ParentIntNumber = p.ParentIntNumber,
+                                                    ParentIntEnum = p.ParentIntEnum,
+                                                    ParentMoney = p.ParentMoney,
+                                                    ParentDatetime = p.ParentDatetime,
+                                                    ParentVarchar = p.ParentVarchar,
+                                                    ParentLongVarchar = p.ParentLongVarchar,
+                                                    ParentBit = p.ParentBit,
+                                                    ParentTinyintBool = p.ParentTinyintBool,
+                                                    ParentTinyintEnum = p.ParentTinyintEnum,
+                                                    ParentText = p.ParentText,
+                                                    ParentBinary = p.ParentBinary
+                                                }).OrderBy(p => p.GUID).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+            var result = new { Count = RecordCount, Source = ParentList };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         //

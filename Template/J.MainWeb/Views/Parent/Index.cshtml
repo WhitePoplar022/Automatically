@@ -6,7 +6,8 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#Parent-search").jsearch({ //查询表头
+
+        $("#Parent-search").jsearch({ //查询部分
             items: [
 					{ Name: "小数和整数", Id: "txt_double", Type: "double" },
 					{ Name: "范围小数和整数", Id: "txt_doubleStart", Type: "doubleRange", Brother: [{ Id: "txt_doubleEnd" }] },
@@ -24,22 +25,72 @@
             ]
         });
   
-       
+        RefreshTable(1, 'true');//内容部分
+
+        function ShowPager(count) { //分页部分
+            $("#Parent-pager").jdatapager({
+                recordCount: count,
+                pageSize: 5,
+                pageIndex: 1,
+                onPageChange: function (pageindex, pagesize) {
+                    RefreshTable(pageindex, 'false');
+                }
+            });
+        }
+
+        function RefreshTable(pageindex, flag) { //翻页和主体部分
+            $.ajax({
+                type: "Json",
+                cache: false,
+                url: "@Url.Action("IndexList", "Parent")",
+                data: {
+                    PageSize: 5,
+                    PageIndex: pageindex
+                },
+                success: function (data) {
+                    count = data.Count;
+                    if (flag == 'true') {
+                        ShowPager(count); //返回总页数
+                    }
+                    $("#Parent-content").jtable({
+                        tableHeight: '30%', //表高
+                        tableWidth: '100%', //表宽
+                        data:data.Source,
+                          //数据源
+                        columns:
+                            [
+                                { head: "名称1", context: "#Name(#Name2)(#ID)",maxLength：5, head_align:"left", v_align: "top", h_align: "left", height: "auto", width:"auto"},
+                                { head: "名称2", context: "#Name2", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto" },
+                                { head: "名称3", context: "#Name3", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto" },
+                                { head: "名称4", context: "#Name4", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto" },
+                                { head: "名称5", context: "#Name5", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto" },
+                                { head: "操作",context: "&lt;a href='#' onclick=ActionEdit(#ID,'#Name','#Name2')&gt;Edit&lt;/a&gt;|&lt;a href='#' onclick=ActionDetail(#ID,'#Name','#Name2')&gt;Detail&lt;/a&gt;|&lt;a href='#' onclick=ActionDelete(#ID,'#Name','#Name2')&gt;Delete&lt;/a&gt;",
+                                    maxLength: 5,head_align: "left",v_align: "top",h_align: "left",height: "auto",width: "auto"}
+                            ],//列名
+                        sortItem: { sortColumn: "#Name5", sortType: "asc" } ,
+                        onSortChange: function (sortColumn, head, sortType) {
+                                 alert(sortColumn + "\n" + head + "\n" + sortType);
+                            }
+                        });
+                    
+
+                }
+                });
+        }
 
 
-
-   
+            
     });
-
 </script>
 <h2>Index</h2>
 
 
-<div id="Parent-search"></div>
+<div id="Parent-search">
+
+</div>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <div id="Parent-content">
-
-
 </div>
+<div id="Parent-pager"></div>
