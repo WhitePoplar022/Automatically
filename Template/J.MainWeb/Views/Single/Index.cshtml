@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<J.Entities.Single>
-
 @{
     ViewBag.Title = "Single";
 }
@@ -8,76 +7,152 @@
     <span >@item.ID,@item.SingleIntNumber,@item.SingleIntEnum,@item.SingleMoney,@item.SingleDatetime,@item.SingleVarchar,@item.SingleLongVarchar,@item.SingleBit,@item.SingleTinyintBool,@item.SingleTinyintEnum,@item.SingleText</span>
 }  
 </div>
+<script src="~/Static/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        mode: "exact",
+        elements: "ESingleLongVarchar"
+    });
+</script>    
+<script type="text/javascript">
+    //功能：获取TinyMce编辑器的内容
+    //参数：editorId——编辑器的id
+    //返回：内容字符串；如果失败，返回空字符串
+    function GetTinyMceContent(editorId) {
+        //获取html
+        //return tinyMCE.getInstanceById(editorId).getBody().innerHTML;
+        //获取纯文本
+        return tinyMCE.get(editorId).getContent({ 'format': 'text' });
+    }
+
+    //功能：设置TinyMce编辑器的内容
+    //参数：editorId——编辑器的id
+    //         content——内容
+    //返回：（无）
+    function SetTinyMceContent(editorId, content) {
+        tinyMCE.getInstanceById(editorId).getBody().innerHTML = content;
+    }
+</script>
+
 <script type="text/javascript">
     var EID;
-    //验证输入的字符数        
-    function CheckLength(o) {
-        if (o.val().length == 0) {
-            o.addClass("ui-state-error"); //为当前错误添加
-            $("#" + o.attr("id") + "_notice").css("color", "red");
-            $("#" + o.attr("id") + "_notice").html("此项不能为空");
-            return false;
-        } else {
-            //o.removeClass("ui-state-error");
-            //$("#" + o.attr("id") + "_notice").html("");
-            return true;
+//验证输入的字符数        
+function CheckLength(o) {
+    if (o.val().length == 0) {
+        o.addClass("ui-state-error"); //为当前错误添加
+        $("#" + o.attr("id") + "_notice").css("color", "red");
+        $("#" + o.attr("id") + "_notice").html("此项不能为空");
+        return false;
+    } else {
+        //o.removeClass("ui-state-error");
+        //$("#" + o.attr("id") + "_notice").html("");
+        return true;
+    }
+}
+//验证是否为数字
+function CheckNum(o) {
+    if (isNaN(o.val())) {
+        o.addClass("ui-state-error"); //为当前错误添加
+        $("#" + o.attr("id") + "_notice").css("color", "red");
+        $("#" + o.attr("id") + "_notice").html("请输入数字");
+        return false;
+    } else {
+        o.removeClass("ui-state-error");
+        return true;
+    }
+}
+//查看详情
+function Detail(ID) {
+    $.ajax({
+        type: "get",
+        cache: false,
+        url: "@Url.Action("Details", "Single")",
+        data: {id:ID},
+        success: function (data) {
+            var dataobj = JSON.parse(data);
+            $("#DSingleIntNumber").html(dataobj.SingleIntNumber);
+            $("#DSingleIntEnum").html(dataobj.SingleIntEnum);
+            $("#DSingleMoney").html(dataobj.SingleMoney);
+            $("#DSingleDatetime").html(dataobj.SingleDatetime.replace(/T/," "));
+            $("#DSingleVarchar").html(dataobj.SingleVarchar);
+            $("#DSingleLongVarchar").html(dataobj.SingleLongVarchar);
+            $("#DSingleBit").html(dataobj.SingleBit);
+            $("#DSingleTinyintBool").html(dataobj.SingleTinyintBool);
+            $("#DSingleTinyintEnum").html(dataobj.SingleTinyintEnum);
+            $("#DSingleText").html(dataobj.SingleText);
+            $("#detailSingle").dialog('open');
         }
+    });
+}
+//删除数据
+function Delete(id) {        
+    if (confirm("确定删除该条数据？")) {
+        $.ajax({
+            type: "get",
+            cache: false,
+            url: "@Url.Action("Delete","Single")",
+			data: { id: id },
+			success: function (data) {
+				if (data == "Y") {
+				    window.location.reload();
+				} else if (data == "N") {
+				    alert("删除失败!");
+				}
+			}
+        });
     }
-    //验证是否为数字
-    function CheckNum(o) {
-        if (isNaN(o.val())) {
-            o.addClass("ui-state-error"); //为当前错误添加
-            $("#" + o.attr("id") + "_notice").css("color", "red");
-            $("#" + o.attr("id") + "_notice").html("请输入数字");
-            return false;
-        } else {
-            o.removeClass("ui-state-error");
-            return true;
-        }
-    }
-    //查看详情
-    function Detail(singleIntNumber,singleintEnum,singleMoney,singleDatetime,singleVarchar,
-        singleLongVarchar, singleBit, singleTinyintBool, singleTinyintEnum, singleText) {
-        $("#DSingleIntNumber").html(singleIntNumber);
-        $("#DSingleIntEnum").html(singleintEnum);
-        $("#DSingleMoney").html(singleMoney);
-        $("#DSingleDatetime").html(singleDatetime);
-        $("#DSingleVarchar").html(singleVarchar);
-        $("#DSingleLongVarchar").html(singleLongVarchar);
-        $("#DSingleBit").html(singleBit);
-        $("#DSingleTinyintBool").html(singleTinyintBool);
-        $("#DSingleTinyintEnum").html(singleTinyintEnum);
-        $("#DSingleText").html(singleText);
-        $("#detailSingle").dialog('open');
-    }
-    //删除数据
-    function Delete(id) {        
-        if (confirm("确定删除该条数据？")) {
-            $.ajax({
-                type: "get",
-                cache: false,
-                url: "@Url.Action("Delete","Single")",
-				            data: { id: id },
-				            success: function (data) {
-				                if (data == "Y") {
-				                    window.location.reload();
-				                } else if (data == "N") {
-				                    alert("删除失败!");
-				                }
-				            }
-            });
-        }
-    }
-    //新增
-    function Create() {
-        $("#c").find(":text").val("");
-        $("#createSingle").dialog('open');
+}
+//新增
+function Create() {
+    $("#c").find(":text").val("");
+    $("#createSingle").dialog('open');
 
-        $("#SingleDatetime").jdatetimepicker({
+    $("#SingleDatetime").jdatetimepicker({
+        datetimeParse: "yyyy-MM-dd"
+    });
+
+    $("#SingleBinary").uploadify({
+        'multi': false,								//禁止多个同时上传
+        'buttonText': "选择并上传文件",				//按钮上的文字
+        'fileTypeDesc': '图片文件',					//文件类型描述
+        'fileTypeExts': '*.jpg; *.png',			//文件类型后缀
+        'swf': '@Url.Content("~/Static/uploadify/uploadify.swf")',
+        'uploader': '@Url.Action("UploadFile", "Single")',
+        'onUploadSuccess': function (file, data, response) {
+            var dataobj = JSON.parse(data);
+            $("#SingleBinary_notice").html(dataobj.msg);
+        }
+    });
+}
+   
+//编辑
+    function Edit(id) {
+        EID = id;
+        $.ajax({
+            type: "get",
+            cache: false,
+            url: "@Url.Action("Details", "Single")",
+            data: { id: id },
+            success: function (data) {
+                var dataobj = JSON.parse(data);
+                $("#ESingleIntNumber").val(dataobj.SingleIntNumber);
+                $("#ESingleIntEnum").val(dataobj.SingleIntEnum);
+                $("#ESingleMoney").val(dataobj.SingleMoney);
+                $("#ESingleDatetime").val(dataobj.SingleDatetime.replace(/T/, " "));
+                $("#ESingleVarchar").val(dataobj.SingleVarchar);
+                $("#ESingleLongVarchar").val(SetTinyMceContent("ESingleLongVarchar", dataobj.SingleLongVarchar));
+                $("#ESingleBit").val(dataobj.SingleBit);
+                $("#ESingleTinyintBool").val(dataobj.SingleTinyintBool);
+                $("#ESingleTinyintEnum").val(dataobj.SingleTinyintEnum);
+                $("#ESingleText").val(dataobj.SingleText);
+                $("#editSingle").dialog('open');
+            }
+        });
+        $("#ESingleDatetime").jdatetimepicker({
             datetimeParse: "yyyy-MM-dd"
         });
 
-        $("#SingleBinary").uploadify({
+        $("#ESingleBinary").uploadify({
             'multi': false,								//禁止多个同时上传
             'buttonText': "选择并上传文件",				//按钮上的文字
             'fileTypeDesc': '图片文件',					//文件类型描述
@@ -85,47 +160,12 @@
             'swf': '@Url.Content("~/Static/uploadify/uploadify.swf")',
             'uploader': '@Url.Action("UploadFile", "Single")',
             'onUploadSuccess': function (file, data, response) {
-                var dataobj = JSON.parse(data);
-                //alert("文件名：" + file + "\nState(success或error):" + dataobj.state + "\nmsg(GUID或错误信息):" + dataobj.msg);
-                $("#SingleBinary_notice").html(dataobj.msg);
-            }
-        });
-    }
-    //编辑
-    function Edit(id,singleIntNumber, singleintEnum, singleMoney, singleDatetime, singleVarchar,
-        singleLongVarchar, singleBit, singleTinyintBool, singleTinyintEnum, singleText,photoGUID) {
-            EID = id;
-            $("#ESingleIntNumber").val(singleIntNumber);
-            $("#ESingleIntEnum").val(singleintEnum);
-            $("#ESingleMoney").val(singleMoney);
-            $("#ESingleDatetime").val(singleDatetime);
-            $("#ESingleVarchar").val(singleVarchar);
-            $("#ESingleLongVarchar").val(singleLongVarchar);
-            $("#ESingleBit").val(singleBit);
-            $("#ESingleTinyintBool").val(singleTinyintBool);
-            $("#ESingleTinyintEnum").val(singleTinyintEnum);
-            $("#ESingleText").val(singleText);
-            $("#editSingle").dialog('open');
-
-            $("#ESingleDatetime").jdatetimepicker({
-                datetimeParse: "yyyy-MM-dd"
-            });
-
-            $("#ESingleBinary").uploadify({
-                'multi': false,								//禁止多个同时上传
-                'buttonText': "选择并上传文件",				//按钮上的文字
-                'fileTypeDesc': '图片文件',					//文件类型描述
-                'fileTypeExts': '*.jpg; *.png',			//文件类型后缀
-                'swf': '@Url.Content("~/Static/uploadify/uploadify.swf")',
-            'uploader': '@Url.Action("UploadFile", "Single")',
-            'onUploadSuccess': function (file, data, response) {
-                var dataobj = JSON.parse(data);
-                //alert("文件名：" + file + "\nState(success或error):" + dataobj.state + "\nmsg(GUID或错误信息):" + dataobj.msg);
-                $("#ESingleBinary_notice").html(dataobj.msg);
-            }
-        });
-    }
-   </script>
+            var dataobj = JSON.parse(data);
+            $("#ESingleBinary_notice").html(dataobj.msg);
+        }
+    });
+}
+</script>
 <script type="text/javascript">
     $(function () {
         //搜索
@@ -155,75 +195,52 @@
                 selectContent += "Id为:txt_content2文本的值为:" + $("#txt_content2").val() + ";</br>";
                 $("#showTableSelectContent").html(selectContent);
             }
-        });
-
+        });        
+        //#region data赋值
         var data = [];
         var length = $("#tableData").children("span").length;
         for (var i = 0; i < length; i++) {
-            var dataItem = {
-                "ID": null,
-                "IntNumber": "",
-                "IntEnum": "",
-                "Money": "",
-                "Datetime": "",
-                "Varchar": "",
-                "LongVarchar": "",
-                "Bit": "",
-                "TinyintBool": "",
-                "TinyintEnum": "",
-                "Text": ""
-            };
+            var dataItem = {};
             var array = [];
             var text = "";
             text = $("#tableData").children("span:eq(" + i + ")").text();
             array = text.split(",");
             dataItem["ID"] = array[0];
-            dataItem["IntNumber"] = array[1];
-            dataItem["IntEnum"] = array[2];
-            dataItem["Money"] = array[3];
-            dataItem["Datetime"] = array[4];
-            dataItem["Varchar"] = array[5];
-            dataItem["LongVarchar"] = array[6];
-            dataItem["Bit"] = array[7];
-            dataItem["TinyintBool"] = array[8];
-            dataItem["TinyintEnum"] = array[9];
-            dataItem["Text"] = array[10];
+            dataItem["SingleIntNumber"] = array[1];
+            dataItem["SingleIntEnum"] = array[2];
+            dataItem["SingleMoney"] = array[3];
+            dataItem["SingleDatetime"] = array[4];
+            dataItem["SingleVarchar"] = array[5];
+            dataItem["SingleLongVarchar"] = array[6];
+            dataItem["SingleBit"] = array[7];
+            dataItem["SingleTinyintBool"] = array[8];
+            dataItem["SingleTinyintEnum"] = array[9];
+            dataItem["SingleText"] = array[10];
             data.push(dataItem);
         }
-
+        //#endregion
+        //表格
         $("#MyTable1").jtable({
             tableHeight: '40%', //表高
             tableWidth: '100%', //表宽
-            data:data, //数据源
+            data: data, //数据源
             columns:
                 [
+                    { head: "ID", context: "#ID",sortColumn: "IntNumber", sortType: "desc" },
+                    { head: "IntNumber", context: "#SingleIntNumber",sortColumn: "IntNumber", sortType: "asc" },
+                    { head: "IntEnum", context: "#SingleIntEnum",sortColumn: "IntEnum", sortType: "asc" },
+                    { head: "Money", context: "#SingleMoney",sortColumn: "Money", sortType: "desc" },
+                    { head: "Datetime", context: "#SingleDatetime",sortColumn: "Datetime", sortType: "asc" },
+                    { head: "Varchar", context: "#SingleVarchar",sortColumn: "Varchar", sortType: "desc" },
+                    { head: "LongVarchar", context: "#SingleLongVarchar",sortColumn: "LongVarchar", sortType: "asc" },
+                    { head: "Bit", context: "#SingleBit",sortColumn: "Bit", sortType: "asc" },
+                    { head: "TinyintBool", context: "#SingleTinyintBool",sortColumn: "TinyintBool", sortType: "asc" },
+                    { head: "TinyintEnum", context: "#SingleTinyintEnum",sortColumn: "TinyintEnum", sortType: "asc" },
+                    { head: "Text", context: "#SingleText",sortColumn: "Text", sortType: "asc" },
                     {
-                        head: "ID",				                            //名称
-                        context: "#ID",			                            //#ID
-                        maxLength: 5,			                                        //文本最大长度，0不限制
-                        head_align: "left",                                             //[left], center, right
-                        v_align: "top",		                                            //[top], middle, bottom
-                        h_align: "left",		                                            //[left], center, right
-                        height: "auto",			                                        //150px, 10%
-                        width: "auto"			                                        //150px, 10%
-                        , sortColumn: "ID"                                                //排序列
-                        , sortType: "desc"                                              //排序规则
-                    },
-                    { head: "IntNumber", context: "#IntNumber", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "IntNumber", sortType: "asc" },                   
-                    { head: "IntEnum", context: "#IntEnum", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "IntEnum", sortType: "asc" },
-                    { head: "Money", context: "#Money", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "Money", sortType: "desc" },
-                    { head: "Datetime", context: "#Datetime", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "Datetime", sortType: "asc" },
-                    { head: "Varchar", context: "#Varchar", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "Varchar", sortType: "desc" },
-                    { head: "LongVarchar", context: "#LongVarchar", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "LongVarchar", sortType: "asc" },
-                    { head: "Bit", context: "#Bit", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "Bit", sortType: "asc" },
-                    { head: "TinyintBool", context: "#TinyintBool", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "TinyintBool", sortType: "asc" },
-                    { head: "TinyintEnum", context: "#TinyintEnum", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "TinyintEnum", sortType: "asc" },
-                    { head: "Text", context: "#Text", maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto", sortColumn: "Text", sortType: "asc" },
-                    {
-                        head: "操作", context: "<a href=javascript:Edit()>编辑</a>|" +
-                            "<a href="+"javascript:Detail('#IntNumber','#IntEnum','#Money',#Datetime,'#Varchar','#LongVarchar','#Bit','#TinyintBool','#TinyintEnum','#Text')"+">详细</a>|" +
-                            "<a href=javascript:Delete(#ID)>删除</a>",
-                        maxLength: 5, head_align: "left", v_align: "top", h_align: "left", height: "auto", width: "auto"
+                        head: "操作", context: "<a href=\"javascript:Edit(#ID)\">编辑</a>|" +
+                            "<a href=\"javascript:Detail(#ID)\">详细</a>|" +
+                            "<a href=\"javascript:Delete(#ID)\">删除</a>"
                     }
                 ]//列名                
             , sortItem: { sortColumn: "Money", sortType: "asc" }
@@ -232,6 +249,7 @@
             }
         });
 
+        //排序
         $("#sort").jsortSelect({
             items: [{ sortColumn: "ID", text: "ID" },
                 { sortColumn: "IntNumber", text: "IntNumber", sortType: "asc" },
@@ -246,12 +264,11 @@
                 { sortColumn: "Text", text: "Text", sortType: "asc" }
             ],
             onSortChange: function (sortColumn, text, sortType) {
-
                 alert("选择的字段名称为:" + sortColumn + ";显示名称为:" + text + ";排序方式为:" + sortType);
-
             }
-
         });
+
+
             //新增页面属性
             var SingleIntNumber = $("#SingleIntNumber");
             var SingleIntEnum = $("#SingleIntEnum");
@@ -289,7 +306,7 @@
                     $("#" + this.id + "_notice").html("");
                 }
             });
-
+            
             //新增
             $("#createSingle").dialog({
                 maxHeight: 730,
@@ -345,7 +362,7 @@
                     , '取消': function () {
                         $("#c").find(":text").removeClass("ui-state-error");
                         $("#c").find("span").html("");
-                        $(this).dialog('close');
+                        $(this).dialog("close");
                     }
                 }
             });
@@ -361,63 +378,62 @@
                 modal: true
             });
             //#endregion
-
-
-            //#region编辑数据
+        
+        //#region编辑数据
             $("#editSingle").dialog({
-                maxHeight: 730,
-                maxWidth: 580,
-                minHeight: 730,
-                minWidth: 580,
-                bgiframe: true,
-                autoOpen: false,
-                modal: true,
-                buttons: {
-                    '确定': function () {
-                        var lengthConfirm = true;
-                        $("#e").find(":text").each(function () {
-                            if (!CheckLength($(this))) {
-                                lengthConfirm = false;
-                                return;
-                            }
-                        });
-                        if (lengthConfirm) {
-				            $.ajax({
-				                type: "get",
-				                cache: false,
-				                url: "@Url.Action("Edit", "Single")",
-				                data: {
-				                    id:EID,
-				                    singleIntNumber: ESingleIntNumber.val(),
-				                    singleIntEnum: ESingleIntEnum.val(),
-				                    singleMoney: ESingleMoney.val(),
-				                    singleDatetime: ESingleDatetime.val(),
-				                    singleVarchar: ESingleVarchar.val(),
-				                    singleLongVarchar: ESingleLongVarchar.val(),
-				                    singleBit: ESingleBit.val()==true?1:0,
-				                    singleTinyintBool: ESingleTinyintBool.val()!=true?1:0,
-				                    singleTinyintEnum: ESingleTinyintEnum.val(),
-				                    singleText: ESingleText.val(),
-				                    photoPath: $("#ESingleBinary_notice").html()
-				                },
-						        success: function (data) {
-						            if (data == "Y") {
-						                window.location.reload();
-						            } else if (data == "N") {
-						                alert("出现异常，编辑失败。")
-						            } else {
-                                        alert(data)
-						            }
-						        }
-					        });
-                        }
-				},
-			    '取消': function () {
-			        $("#e").find(":text").removeClass("ui-state-error");
-			        $("#e").find("span").html("");
-			        $(this).dialog('close');
-			    }
-			}
+                    maxHeight: 730,
+                    maxWidth: 580,
+                    minHeight: 730,
+                    minWidth: 580,
+                    bgiframe: true,
+                    autoOpen: false,
+                    modal: true,
+                    buttons: {
+                            '确定': function () {
+                                var lengthConfirm = true;
+                                $("#e").find(":text").each(function () {
+                                    if (!CheckLength($(this))) {
+                                        lengthConfirm = false;
+                                        return;
+                                    }
+                                });
+                                if (lengthConfirm) {
+				                    $.ajax({
+				                        type: "get",
+				                        cache: false,
+				                        url: "@Url.Action("Edit", "Single")",
+				                        data:
+                                            {
+				                            id:EID,
+				                            singleIntNumber: ESingleIntNumber.val(),
+				                            singleIntEnum: ESingleIntEnum.val(),
+				                            singleMoney: ESingleMoney.val(),
+				                            singleDatetime: ESingleDatetime.val(),
+				                            singleVarchar: ESingleVarchar.val(),
+				                            singleLongVarchar: GetTinyMceContent('ESingleLongVarchar'),
+				                            singleBit: ESingleBit.val()==true?1:0,
+				                            singleTinyintBool: ESingleTinyintBool.val()!=true?1:0,
+				                            singleTinyintEnum: ESingleTinyintEnum.val(),
+				                            singleText: ESingleText.val(),
+				                            photoPath: $("#ESingleBinary_notice").html()
+				                        },
+				                        success: function (data) {
+						                    if (data == "Y") {
+						                        window.location.reload();
+						                    }
+						                    else {
+                                                alert(data)
+						                    }
+						                }
+					                });
+                                }
+				        },
+			            '取消': function () {
+			                $("#e").find(":text").removeClass("ui-state-error");
+			                $("#e").find("span").html("");
+			                $(this).dialog('close');
+			            }
+                    }
             });
             //#endregion
 
@@ -425,12 +441,12 @@
 </script>
 
 <div id="searchContent"></div>
-
 <a style="display:block;float:right;" href="javascript:Create()">创建新数据</a>
 <div id="sort"></div>
-<br />
 <div id="MyTable1"></div>
-
+<div id="MyPager">
+	&nbsp;
+</div>
 <div id="detailSingle" title="详细" style="display: none; width: 100%;" class="ui-widget ui-widget-content ui-corner-all">
 	@Html.Partial("Details")
 </div>
@@ -440,3 +456,5 @@
 <div id="editSingle" title="编辑" style="display: none; width: 100%;" class="ui-widget ui-widget-content ui-corner-all">
 	@Html.Partial("Edit")
 </div>
+
+
