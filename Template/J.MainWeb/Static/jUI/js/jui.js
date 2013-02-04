@@ -831,8 +831,9 @@ Copyright (c) 2011 by Harvest
 	$ = jQuery;
 
 	$.fn.extend({
-		chosen: function (options) {
-			if (navigator.userAgent.indexOf("MSIE") > 0 && ($.browser.version === "6.0" || ($.browser.version === "7.0" && document.documentMode === 7))) {
+	    chosen: function (options) {
+	        //navigator.userAgent.indexOf("MSIE 6.0")>0  判断是否为ie6
+	        if (navigator.userAgent.indexOf("MSIE") > 0 && (navigator.userAgent.indexOf("MSIE 6.0") > 0 || (navigator.userAgent.indexOf("MSIE 7.0") > 0  && document.documentMode === 7))) {
 				return this;
 			}
 			return this.each(function (input_field) {
