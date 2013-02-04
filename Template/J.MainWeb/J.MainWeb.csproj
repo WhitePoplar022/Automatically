@@ -175,6 +175,7 @@
     <None Include="Static\jquery\jquery-1.9.0.intellisense.js" />
     <Content Include="Static\jquery\jquery-1.9.0.js" />
     <Content Include="Static\jquery\jquery-1.9.0.min.js" />
+    <Content Include="Static\jquery\jquery-migrate-1.1.0.js" />
     <Content Include="Static\json2\json2.js" />
     <Content Include="Static\jUI\css\jui.css" />
     <Content Include="Static\jUI\images\jui-icons_094ab2_78x84.png" />
@@ -518,7 +519,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
-    <Folder Include="Models\" />
     <Folder Include="Static\tiny_mce\plugins\spellchecker\classes\utils\" />
     <Folder Include="Static\tiny_mce\plugins\spellchecker\includes\" />
   </ItemGroup>

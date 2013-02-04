@@ -41,7 +41,8 @@ namespace J.MainWeb
 
 			#region jquery
 			bundles.Add(new ScriptBundle("~/Static/jquery/files").Include(
-						"~/Static/jquery/jquery-{version}.js"));
+						"~/Static/jquery/jquery-{version}.js",
+						"~/Static/jquery/jquery-migrate-{version}.js"));
 			#endregion
 
 			#region jquery ui
