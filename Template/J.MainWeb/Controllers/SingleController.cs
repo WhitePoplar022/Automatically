@@ -154,9 +154,9 @@ namespace J.MainWeb.Controllers
                 db.SaveChanges();
                 return Content("Y");
             }
-            catch
+            catch(Exception e)
             {
-                return Content("N");
+                return Content(e.Message);
             }
         }
 

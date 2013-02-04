@@ -164,6 +164,7 @@
     <Content Include="Static\jquery-ui\js\jquery-ui-1.10.0.min.js" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
@@ -517,6 +518,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
+    <Folder Include="Models\" />
+    <Folder Include="Static\tiny_mce\plugins\spellchecker\classes\utils\" />
+    <Folder Include="Static\tiny_mce\plugins\spellchecker\includes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

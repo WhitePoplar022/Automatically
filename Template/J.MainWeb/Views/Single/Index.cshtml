@@ -13,6 +13,10 @@
         mode: "exact",
         elements: "ESingleLongVarchar"
     });
+    //tinyMCE.init({
+    //    mode: "exact",
+    //    elements: "SingleLongVarchar"
+    //});
 </script>    
 <script type="text/javascript">
     //功能：获取TinyMce编辑器的内容
@@ -106,7 +110,11 @@ function Delete(id) {
 function Create() {
     $("#c").find(":text").val("");
     $("#createSingle").dialog('open');
-
+    tinyMCE.init({
+        mode: "exact",
+        elements: "SingleLongVarchar",
+        cleanup_on_startup:true
+    });
     $("#SingleDatetime").jdatetimepicker({
         datetimeParse: "yyyy-MM-dd"
     });
@@ -168,6 +176,10 @@ function Create() {
 </script>
 <script type="text/javascript">
     $(function () {
+
+        $("#CreateBitRadio").jradio();
+        $("#EditBitRadio").jradio();
+
         //搜索
         $("#searchContent").jsearch({
             items: [
@@ -268,20 +280,6 @@ function Create() {
             }
         });
 
-
-            //新增页面属性
-            var SingleIntNumber = $("#SingleIntNumber");
-            var SingleIntEnum = $("#SingleIntEnum");
-            var SingleMoney = $("#SingleMoney");
-            var SingleDatetime = $("#SingleDatetime");
-            var SingleVarchar = $("#SingleVarchar");
-            var SingleLongVarchar = $("#SingleLongVarchar");
-            var SingleBit = $("#SingleBit");
-            var SingleTinyintBool = $("#SingleTinyintBool");
-            var SingleTinyintEnum = $("#SingleTinyintEnum");
-            var SingleText = $("#SingleText");
-            
-
             //编辑页面属性
             var ESingleIntNumber = $("#ESingleIntNumber");//
             var ESingleIntEnum = $("#ESingleIntEnum");//
@@ -307,65 +305,76 @@ function Create() {
                 }
             });
             
-            //新增
-            $("#createSingle").dialog({
-                maxHeight: 730,
-                maxWidth: 580,
-                minHeight: 730,
-                minWidth: 580,
-                bgiframe: true,
-                autoOpen: false,
-                modal: true,
-                buttons: {
-                    '确定': function () {
-                        var c = 0;
-                        if (!CheckNum(SingleIntNumber) || !CheckNum(SingleIntEnum) || !CheckNum(SingleMoney) || !CheckNum(SingleTinyintBool) || !CheckNum(SingleTinyintEnum)) {
-                            c += 1;
+        //新增
+        $("#createSingle").dialog({
+            maxHeight: 730,
+            maxWidth: 580,
+            //minHeight: 730,
+            minWidth: 580,
+            bgiframe: true,
+            autoOpen: false,
+            modal: true,
+            buttons: {
+                '确定': function () {
+                    //新增页面属性
+                    var SingleIntNumber = $("#SingleIntNumber");
+                    var SingleMoney = $("#SingleMoney");
+                    var SingleDatetime = $("#SingleDatetime").val();
+                    var SingleVarchar = $("#SingleVarchar").val();
+                    var SingleLongVarchar =GetTinyMceContent("SingleLongVarchar");
+                    var SingleTinyintBool = $("#SingleTinyintBool");
+                    var SingleText = $("#SingleText").val();
+                    var SingleBit = $("#SingleBit").children(":checked").attr("value");
+                    var SingleTinyintEnum = $("#SingleTinyintEnum").children(":checked").attr("value");
+                    var SingleIntEnum = $("#SingleIntEnum").children(":checked").attr("value");
+                    var c = 0;
+                    if (!CheckNum(SingleIntNumber) || !CheckNum(SingleMoney) || !CheckNum(SingleTinyintBool)) {
+                        c += 1;
+                    }
+                    var lengthConfirm = true;
+                    $("#c").find(":text").each(function () {
+                        if (!CheckLength($(this))) {
+                            lengthConfirm = false;
+                            return;
                         }
-                        var lengthConfirm = true;
-                        $("#c").find(":text").each(function () {
-                            if (!CheckLength($(this))) {
-                                lengthConfirm = false;
-                                return;
+                    });
+                    if (lengthConfirm && c==0) {
+                        $.ajax({
+                            type: "get",
+                            cache: false,
+                            url: "@Url.Action("Create", "Single")",
+                            data: {
+                                id:EID,
+                                singleIntNumber: SingleIntNumber.val(),
+                                singleIntEnum: SingleIntEnum,
+                                singleMoney: SingleMoney.val(),
+                                singleDatetime: SingleDatetime,
+                                singleVarchar: SingleVarchar,
+                                singleLongVarchar: SingleLongVarchar,
+                                singleBit: SingleBit,
+                                singleTinyintBool: SingleTinyintBool.val(),
+                                singleTinyintEnum: SingleTinyintEnum,
+                                singleText: SingleText,
+                                photoPath: $("#SingleBinary_notice").html()
+                            },
+                            success: function (data) {
+                                if (data == "Y") {
+                                    window.location.reload();
+                                }
+                                else {
+                                    alert("新增失败!"+data)
+                                }
                             }
                         });
-                        if (lengthConfirm && c==0) {
-                            $.ajax({
-                                type: "get",
-                                cache: false,
-                                url: "@Url.Action("Create", "Single")",
-                                data: {
-                                    id:EID,
-                                    singleIntNumber: SingleIntNumber.val(),
-                                    singleIntEnum: SingleIntEnum.val(),
-                                    singleMoney: SingleMoney.val(),
-                                    singleDatetime: SingleDatetime.val(),
-                                    singleVarchar: SingleVarchar.val(),
-                                    singleLongVarchar: SingleLongVarchar.val(),
-                                    singleBit: SingleBit.val(),
-                                    singleTinyintBool: SingleTinyintBool.val(),
-                                    singleTinyintEnum: SingleTinyintEnum.val(),
-                                    singleText: SingleText.val(),
-                                    photoPath: $("#SingleBinary_notice").html()
-                                },
-                                success: function (data) {
-                                    if (data == "Y") {
-                                        window.location.reload();
-                                    }
-                                     else {
-                                        alert("新增失败!")
-                                    }
-                                }
-                            });
-                        }
-                    }
-                    , '取消': function () {
-                        $("#c").find(":text").removeClass("ui-state-error");
-                        $("#c").find("span").html("");
-                        $(this).dialog("close");
                     }
                 }
-            });
+                //, '取消': function () {
+                //    $("#c").find(":text").removeClass("ui-state-error");
+                //    $("#c").find("span").html("");
+                //    $(this).dialog("close");
+                //}
+            }
+        });
 
             //#region 详情
             $("#detailSingle").dialog({
@@ -428,11 +437,11 @@ function Create() {
 					                });
                                 }
 				        },
-			            '取消': function () {
-			                $("#e").find(":text").removeClass("ui-state-error");
-			                $("#e").find("span").html("");
-			                $(this).dialog('close');
-			            }
+			            //'取消': function () {
+			            //    $("#e").find(":text").removeClass("ui-state-error");
+			            //    $("#e").find("span").html("");
+			            //    $(this).dialog('close');
+			            //}
                     }
             });
             //#endregion
