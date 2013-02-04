@@ -11,7 +11,8 @@
 <script type="text/javascript">
     tinyMCE.init({
         mode: "exact",
-        elements: "ESingleLongVarchar"
+        elements: "ESingleLongVarchar",
+        language:"cn"
     });
     //tinyMCE.init({
     //    mode: "exact",
@@ -144,15 +145,27 @@ function Create() {
             success: function (data) {
                 var dataobj = JSON.parse(data);
                 $("#ESingleIntNumber").val(dataobj.SingleIntNumber);
-                $("#ESingleIntEnum").val(dataobj.SingleIntEnum);
+                //$("#ESingleIntEnum").val(dataobj.SingleIntEnum);
                 $("#ESingleMoney").val(dataobj.SingleMoney);
                 $("#ESingleDatetime").val(dataobj.SingleDatetime.replace(/T/, " "));
                 $("#ESingleVarchar").val(dataobj.SingleVarchar);
                 $("#ESingleLongVarchar").val(SetTinyMceContent("ESingleLongVarchar", dataobj.SingleLongVarchar));
-                $("#ESingleBit").val(dataobj.SingleBit);
+                //$("#ESingleBit").val(dataobj.SingleBit);
                 $("#ESingleTinyintBool").val(dataobj.SingleTinyintBool);
-                $("#ESingleTinyintEnum").val(dataobj.SingleTinyintEnum);
+                //$("#ESingleTinyintEnum").val(dataobj.SingleTinyintEnum);
                 $("#ESingleText").val(dataobj.SingleText);
+                
+                //dataobj.SingleIntEnum == ""
+                $("#ESingleIntEnum").children("span").remove();
+                $("#ESingleIntEnum").children(":checked").attr("checked", "");
+                $("#ESingleIntEnum").children(":radio").each(function () {
+                    if (parseInt($(this).attr("value")) == dataobj.SingleIntEnum) {
+                        $(this).attr("checked", "checked");
+                        $("#ESingleIntEnum").jradio();
+                    }
+                });
+
+                //$("#EditBitRadio").jradio();
                 $("#editSingle").dialog('open');
             }
         });
@@ -178,7 +191,6 @@ function Create() {
     $(function () {
 
         $("#CreateBitRadio").jradio();
-        $("#EditBitRadio").jradio();
 
         //搜索
         $("#searchContent").jsearch({
@@ -280,36 +292,25 @@ function Create() {
             }
         });
 
-            //编辑页面属性
-            var ESingleIntNumber = $("#ESingleIntNumber");//
-            var ESingleIntEnum = $("#ESingleIntEnum");//
-            var ESingleMoney = $("#ESingleMoney");//
-            var ESingleDatetime = $("#ESingleDatetime");
-            var ESingleVarchar = $("#ESingleVarchar");
-            var ESingleLongVarchar = $("#ESingleLongVarchar");
-            var ESingleBit = $("#ESingleBit");
-            var ESingleTinyintBool = $("#ESingleTinyintBool");//
-            var ESingleTinyintEnum = $("#ESingleTinyintEnum");//
-            var ESingleText = $("#ESingleText");
 
-            $("#createSingle").find("input:text").bind({
-                mousedown: function () {
-                    $(this).removeClass("ui-state-error");
-                    $("#" + this.id + "_notice").html("");
-                }
-            });
-            $("#editSingle").find("input:text").bind({
-                mousedown: function () {
-                    $(this).removeClass("ui-state-error");
-                    $("#" + this.id + "_notice").html("");
-                }
-            });
+        $("#createSingle").find("input:text").bind({
+            mousedown: function () {
+                $(this).removeClass("ui-state-error");
+                $("#" + this.id + "_notice").html("");
+            }
+        });
+        $("#editSingle").find("input:text").bind({
+            mousedown: function () {
+                $(this).removeClass("ui-state-error");
+                $("#" + this.id + "_notice").html("");
+            }
+        });
             
         //新增
         $("#createSingle").dialog({
             maxHeight: 730,
             maxWidth: 580,
-            //minHeight: 730,
+            minHeight: 730,
             minWidth: 580,
             bgiframe: true,
             autoOpen: false,
@@ -359,7 +360,8 @@ function Create() {
                             },
                             success: function (data) {
                                 if (data == "Y") {
-                                    window.location.reload();
+                                    //window.location.reload();
+                                    window.location.href = "@Url.Content("~/Single")";
                                 }
                                 else {
                                     alert("新增失败!"+data)
@@ -389,64 +391,76 @@ function Create() {
             //#endregion
         
         //#region编辑数据
-            $("#editSingle").dialog({
-                    maxHeight: 730,
-                    maxWidth: 580,
-                    minHeight: 730,
-                    minWidth: 580,
-                    bgiframe: true,
-                    autoOpen: false,
-                    modal: true,
-                    buttons: {
-                            '确定': function () {
-                                var lengthConfirm = true;
-                                $("#e").find(":text").each(function () {
-                                    if (!CheckLength($(this))) {
-                                        lengthConfirm = false;
-                                        return;
-                                    }
-                                });
-                                if (lengthConfirm) {
-				                    $.ajax({
-				                        type: "get",
-				                        cache: false,
-				                        url: "@Url.Action("Edit", "Single")",
-				                        data:
-                                            {
-				                            id:EID,
-				                            singleIntNumber: ESingleIntNumber.val(),
-				                            singleIntEnum: ESingleIntEnum.val(),
-				                            singleMoney: ESingleMoney.val(),
-				                            singleDatetime: ESingleDatetime.val(),
-				                            singleVarchar: ESingleVarchar.val(),
-				                            singleLongVarchar: GetTinyMceContent('ESingleLongVarchar'),
-				                            singleBit: ESingleBit.val()==true?1:0,
-				                            singleTinyintBool: ESingleTinyintBool.val()!=true?1:0,
-				                            singleTinyintEnum: ESingleTinyintEnum.val(),
-				                            singleText: ESingleText.val(),
-				                            photoPath: $("#ESingleBinary_notice").html()
-				                        },
-				                        success: function (data) {
-						                    if (data == "Y") {
-						                        window.location.reload();
-						                    }
-						                    else {
-                                                alert(data)
-						                    }
-						                }
-					                });
+        $("#editSingle").dialog({
+                maxHeight: 730,
+                maxWidth: 580,
+                minHeight: 730,
+                minWidth: 580,
+                bgiframe: true,
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    '确定': function () {
+                        //编辑页面属性
+                        var ESingleIntNumber = $("#ESingleIntNumber");
+                        var ESingleIntEnum = $("#ESingleIntEnum");//
+                        var ESingleMoney = $("#ESingleMoney");
+                        var ESingleDatetime = $("#ESingleDatetime");
+                        var ESingleVarchar = $("#ESingleVarchar");
+                        var ESingleLongVarchar = $("#ESingleLongVarchar");
+                        var ESingleBit = $("#ESingleBit");//
+                        var ESingleTinyintBool = $("#ESingleTinyintBool");
+                        var ESingleTinyintEnum = $("#ESingleTinyintEnum");//
+                        var ESingleText = $("#ESingleText");
+                            var lengthConfirm = true;
+                            $("#e").find(":text").each(function () {
+                                if (!CheckLength($(this))) {
+                                    lengthConfirm = false;
+                                    return;
                                 }
-				        },
-			            //'取消': function () {
-			            //    $("#e").find(":text").removeClass("ui-state-error");
-			            //    $("#e").find("span").html("");
-			            //    $(this).dialog('close');
-			            //}
-                    }
-            });
+                            });
+                            if (lengthConfirm) {
+				                $.ajax({
+				                    type: "get",
+				                    cache: false,
+				                    url: "@Url.Action("Edit", "Single")",
+				                    data:
+                                        {
+				                        id:EID,
+				                        singleIntNumber: ESingleIntNumber.val(),
+				                        singleIntEnum: ESingleIntEnum.val(),
+				                        singleMoney: ESingleMoney.val(),
+				                        singleDatetime: ESingleDatetime.val(),
+				                        singleVarchar: ESingleVarchar.val(),
+				                        singleLongVarchar: GetTinyMceContent('ESingleLongVarchar'),
+				                        singleBit: ESingleBit.val()==true?1:0,
+				                        singleTinyintBool: ESingleTinyintBool.val()!=true?1:0,
+				                        singleTinyintEnum: ESingleTinyintEnum.val(),
+				                        singleText: ESingleText.val(),
+				                        photoPath: $("#ESingleBinary_notice").html()
+				                    },
+				                    success: function (data) {
+						                if (data == "Y") {
+						                    //window.location.reload();
+						                    window.location.href = "@Url.Content("~/Single")";
+						                }
+						                else {
+                                            alert(data)
+						                }
+						            }
+					            });
+                            }
+				    }
+			        //'取消': function () {
+			        //    $("#e").find(":text").removeClass("ui-state-error");
+			        //    $("#e").find("span").html("");
+			        //    $(this).dialog('close');
+			        //}
+                }
+        });
             //#endregion
 
-        });
+    });
 </script>
 
 <div id="searchContent"></div>

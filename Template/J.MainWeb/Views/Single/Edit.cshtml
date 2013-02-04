@@ -20,29 +20,41 @@
             <input  type="text" id="ESingleText" name="ESingleText" style="width:295px;"/>
             <br /><span id="ESingleText_notice"></span></div>
 
-            <div id="EditBitRadio">
+    <div id="EditBitRadio">
         <div class="display-label">ESingleBit：</div>
         <div class="display-field">
             @*<input  type="text" id="ESingleBit" name="ESingleBit" style="width:295px;"/>*@
-            <input type="radio" name="ESingleBit"  value="1"/>是
-            <input type="radio" name="ESingleBit"  value="0"/>否
-            <br /><span id="ESingleBit_notice"></span></div>
+            <div id="ESingleBit">
+                <input type="radio" name="radioESingleBit"  value="1"/>是
+                <input type="radio" name="radioESingleBit"  value="0"/>否
+                </div>
+            <br />
+            <span id="ESingleBit_notice"></span>
+        </div>
 
         <div class="display-label">ESingleTinyintEnum：</div>
         <div class="display-field">
             @*<input  type="text" id="ESingleTinyintEnum" name="ESingleTinyintEnum" style="width:295px;"/>*@
-            <input  type="radio" name="SingleTinyintEnum" value="1"/>A
-            <input  type="radio" name="SingleTinyintEnum" value="2"/>B
-            <input  type="radio" name="SingleTinyintEnum" value="3"/>C
-            <br /><span id="ESingleTinyintEnum_notice"></span></div>
+            <div id="ESingleTinyintEnum">
+                <input  type="radio" name="radioESingleTinyintEnum" value="1"/>A
+                <input  type="radio" name="radioESingleTinyintEnum" value="2"/>B
+                <input  type="radio" name="radioESingleTinyintEnum" value="3"/>C
+            </div>
+            <br />
+            <span id="ESingleTinyintEnum_notice"></span>
+        </div>
             
         <div class="display-label">ESingleIntEnum：</div>
         <div class="display-field">
             @*<input  type="text" id="ESingleIntEnum" name="ESingleIntEnum" style="width:295px;"/>*@
-            <input  type="radio" name="SingleEnum" value="1"/>A
-            <input  type="radio" name="SingleEnum" value="2"/>B
-            <input  type="radio" name="SingleEnum" value="3"/>C            
-            <br /><span id="ESingleIntEnum_notice"></span></div>
+            <div id="ESingleIntEnum">
+                <input  type="radio" name="radioESingleIntEnum" value="1"/>A
+                <input  type="radio" name="radioESingleIntEnum" value="2"/>B
+                <input  type="radio" name="radioESingleIntEnum" value="3"/>C            
+            </div>
+            <br />
+            <span id="ESingleIntEnum_notice"></span>
+        </div>
    </div>
         <div class="display-label">SingleBinary：</div>
         <div class="display-field"><input  type="file" id="ESingleBinary" name="ESingleBinary" style="width:295px;"/><span id="ESingleBinary_notice" style="display:none;"></span></div>
