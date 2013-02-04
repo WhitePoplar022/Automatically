@@ -8,10 +8,11 @@ using System.Web.Mvc;
 using J.Entities;
 using System.IO;
 using Newtonsoft.Json;
+using J.MainWeb.Models;
 
 namespace J.MainWeb.Controllers
 {
-    public class SingleController : Controller
+    public class SingleController :Controller
     {
         private DBEntities db = new DBEntities();
 
@@ -20,9 +21,34 @@ namespace J.MainWeb.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Singles.OrderBy(s => s.ID).ToList());
-
+            return View(db.Singles.ToList());
         }
+
+        //public ActionResult TableData(int PageSize, int PageIndex)
+        //{
+        //    int RecordCount = db.Singles.Count();
+        //    if (RecordCount <= (PageIndex - 1) * PageSize)
+        //        PageIndex = 1;
+        //    var SingleList = db.Singles
+            //    .Select(l => new
+            //{
+            //    ID=l.ID,
+            //    //SingleBinary = l.SingleBinary,
+            //    SingleBit = l.SingleBit,
+            //    SingleDatetime = l.SingleDatetime,
+            //    SingleIntEnum = l.SingleIntEnum,
+            //    SingleIntNumber = l.SingleIntNumber,
+            //    SingleLongVarchar = l.SingleLongVarchar,
+            //    SingleMoney = l.SingleMoney,
+            //    SingleText = l.SingleText,
+            //    //SingleTinyintBool = l.SingleTinyintBool==true?"true":"false",
+            //    SingleTinyintEnum = l.SingleTinyintEnum,
+            //    SingleVarchar = l.SingleVarchar
+            //})
+            //.OrderBy(l => l.ID).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+            //var result = new { Count = RecordCount, Source = SingleList };
+            //return Content(SingleList);
+        //}
 
         //
         // GET: /Single/Details/5
@@ -30,7 +56,18 @@ namespace J.MainWeb.Controllers
         public ActionResult Details(int id)
         {
             J.Entities.Single single = db.Singles.Single(s => s.ID == id);
-            return View(single);
+            return Content(JsonConvert.SerializeObject(new {
+                SingleBit = single.SingleBit,
+                SingleDatetime = single.SingleDatetime,
+                SingleIntEnum = single.SingleIntEnum,
+                SingleIntNumber = single.SingleIntNumber,
+                SingleLongVarchar = single.SingleLongVarchar,
+                SingleMoney = single.SingleMoney,
+                SingleText = single.SingleText,
+                SingleTinyintBool = single.SingleTinyintBool,
+                SingleTinyintEnum = single.SingleTinyintEnum,
+                SingleVarchar = single.SingleVarchar                 
+            }));
         }
         ////将数据库图片显示 
         //public FileResult Image(int id)
@@ -117,9 +154,9 @@ namespace J.MainWeb.Controllers
                 db.SaveChanges();
                 return Content("Y");
             }
-            catch
+            catch(Exception e)
             {
-                return Content("N");
+                return Content(e.Message);
             }
         }
 
@@ -128,7 +165,7 @@ namespace J.MainWeb.Controllers
         // GET: /Single/Edit/5
 
         public ActionResult Edit(int id, int singleIntNumber, int singleIntEnum, decimal singleMoney, DateTime singleDatetime,
-            string singleVarchar, string singleLongVarchar, int singleBit, int singleTinyintBool, int singleTinyintEnum, string singleText,string photoPath)
+            string singleVarchar, string singleLongVarchar, int singleBit, int singleTinyintBool, int singleTinyintEnum, string singleText, string photoPath)
         {
             try
             {
@@ -139,8 +176,8 @@ namespace J.MainWeb.Controllers
                 sg.SingleDatetime = singleDatetime;
                 sg.SingleVarchar = singleVarchar;
                 sg.SingleLongVarchar = singleLongVarchar;
-                sg.SingleBit = singleBit==1?true:false;
-                sg.SingleTinyintBool = singleTinyintBool!=0?true:false;
+                sg.SingleBit = singleBit == 1 ? true : false;
+                sg.SingleTinyintBool = singleTinyintBool != 0 ? true : false;
                 sg.SingleTinyintEnum = (ESingleTinyintEnum)singleTinyintEnum;
                 sg.SingleText = singleText;
                 sg.SingleBinary = ImageDatabytes(photoPath);
@@ -148,11 +185,12 @@ namespace J.MainWeb.Controllers
                 {
                     return Content("Y");
                 }
-                else {
-                    return null;
-                }
+                return Content("Y");
+                //else {
+                //    return Content("N");
+                //}
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Content(e.Message.ToString());
             }

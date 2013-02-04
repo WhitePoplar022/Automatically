@@ -831,8 +831,9 @@ Copyright (c) 2011 by Harvest
 	$ = jQuery;
 
 	$.fn.extend({
-		chosen: function (options) {
-			if (navigator.userAgent.indexOf("MSIE") > 0 && ($.browser.version === "6.0" || ($.browser.version === "7.0" && document.documentMode === 7))) {
+	    chosen: function (options) {
+	        //navigator.userAgent.indexOf("MSIE 6.0")>0  判断是否为ie6
+	        if (navigator.userAgent.indexOf("MSIE") > 0 && (navigator.userAgent.indexOf("MSIE 6.0") > 0 || (navigator.userAgent.indexOf("MSIE 7.0") > 0  && document.documentMode === 7))) {
 				return this;
 			}
 			return this.each(function (input_field) {
@@ -2599,10 +2600,6 @@ items:
 	    _create: function () {
 	        this._jtableCreate();
 	    },
-	    //_init: function () {
-	    //    this._jtableCreate();            
-	    //},
-
 	    _jtableCreate: function () {
 	        var self = this,
             o = this.options;
@@ -2634,18 +2631,18 @@ items:
 	            for (var j in o.columns) {
 	                var g = o.columns[j];
 	                var g_head = g["head"];
-	                var g_maxLength = g["maxLength"];
+	                var g_maxLength = g["maxLength"] == null ? 5 : g["maxLength"];
 	                if (g_head.length > g_maxLength && g_maxLength != 0) {
 	                    short_g_head = g_head.substring(0, g_maxLength) + "...";
 	                } else {
 	                    short_g_head = g_head;
 	                }
 	                var g_context = g["context"];
-	                var g_head_align = g["head_align"];
-	                var g_v_align = g["v_align"];
-	                var g_h_align = g["h_align"];
-	                var g_height = g["height"];
-	                var g_width = g["width"];
+	                var g_head_align = g["head_align"] == null ? "left" : g["head_align"];
+	                var g_v_align = g["v_align"] == null ? "top" : g["v_align"];
+	                var g_h_align = g["h_align"] == null ? "left" : g["h_align"];
+	                var g_height = g["height"] == null ? "auto" : g["height"];
+	                var g_width = g["width"] == null ? "auto" : g["width"];
 	                var g_sortColumn = g["sortColumn"];
 	                var g_sortType = g["sortType"];
 	                $("#" + tableId + "_tableSorter thead tr").append(
@@ -2745,12 +2742,12 @@ items:
 	                    v = o.columns[c];
 	                    var v_head = v["head"];
 	                    var v_context = v["context"];
-	                    var v_maxLength = v["maxLength"];
-	                    var v_head_align = v["head_align"];
-	                    var v_v_align = v["v_align"];
-	                    var v_h_align = v["h_align"];
-	                    var v_height = v["height"];
-	                    var v_width = v["width"];
+	                    var v_maxLength = v["maxLength"] == null ? 5 : v["maxLength"];
+	                    var v_head_align = v["head_align"] == null ? "left" : v["head_align"];
+	                    var v_v_align = v["v_align"] == null ? "top" : v["v_align"];
+	                    var v_h_align = v["h_align"] == null ? "left" : v["h_align"];
+	                    var v_height = v["height"] == null ? "auto" : v["height"];
+	                    var v_width = v["width"] == null ? "auto" : v["width"];
 	                    for (var r = 0; r < dataArray.length; r++) {
 	                        var t = "#" + dataArray[r];
 	                        v_context = v_context.replace2(t, o.data[i][dataArray[r]]);
@@ -2766,10 +2763,12 @@ items:
 	                        }
 	                    }
 	                    if (isLink == true) {
-	                        $("#" + tableId + "_tableSorter tbody tr:eq(" + i + ")").append("<td style='text-align: " + v_h_align
+	                        var tempstr = "<td style='text-align: " + v_h_align
                             + "; vertical-align: " + v_v_align
                             + "; height: " + v_height
-                            + "; width: " + v_width + ";padding-left: 2px; padding-right: 2px;padding-top:5px;padding-bottom:5px;'><span>" + v_context + "</span></td>"); //列 
+                            + "; width: " + v_width + ";padding-left: 2px; padding-right: 2px;padding-top:5px;padding-bottom:5px;'><span>" + v_context + "</span></td>";
+	                        //var tempobj = $(tempstr);
+	                        $("#" + tableId + "_tableSorter tbody tr:eq(" + i + ")").append(tempstr); //列 
 	                    } else {
 	                        $("#" + tableId + "_tableSorter tbody tr:eq(" + i + ")").append("<td style='text-align: " + v_h_align
                             + "; vertical-align: " + v_v_align

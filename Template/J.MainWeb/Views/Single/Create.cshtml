@@ -3,9 +3,6 @@
         <div id="c">
         <div class="display-label">SingleIntNumber：</div>
         <div class="display-field"><input  type="text" id="SingleIntNumber" name="SingleIntNumber" style="width:295px;"/><br /><span id="SingleIntNumber_notice"></span></div>
-
-        <div class="display-label">SingleIntEnum：</div>
-        <div class="display-field"><input  type="text" id="SingleIntEnum" name="SingleIntEnum" style="width:295px;"/><br /><span id="SingleIntEnum_notice"></span></div>
     
         <div class="display-label">SingleMoney：</div>
         <div class="display-field"><input  type="text" id="SingleMoney" name="SingleMoney" style="width:295px;"/><br /><span id="SingleMoney_notice"></span></div>
@@ -15,23 +12,53 @@
 
         <div class="display-label">SingleVarchar：</div>
         <div class="display-field"><input  type="text" id="SingleVarchar" name="SingleVarchar" style="width:295px;"/><br /><span id="SingleVarchar_notice"></span></div>
-
-        <div class="display-label">SingleLongVarchar：</div>
-        <div class="display-field"><input  type="text" id="SingleLongVarchar" name="SingleLongVarchar" style="width:295px;"/><br /><span id="SingleLongVarchar_notice"></span></div>
-
-        <div class="display-label">SingleBit：</div>
-        <div class="display-field"><input  type="text" id="SingleBit" name="SingleBit" style="width:295px;"/><br /><span id="SingleBit_notice"></span></div>
-
+            
         <div class="display-label">SingleTinyintBool：</div>
         <div class="display-field"><input  type="text" id="SingleTinyintBool" name="SingleTinyintBool" style="width:295px;"/><br /><span id="SingleTinyintBool_notice"></span></div>
-
-        <div class="display-label">SingleTinyintEnum：</div>
-        <div class="display-field"><input  type="text" id="SingleTinyintEnum" name="SingleTinyintEnum" style="width:295px;"/><br /><span id="SingleTinyintEnum_notice"></span></div>
-
+            
         <div class="display-label">SingleText：</div>
         <div class="display-field"><input  type="text" id="SingleText" name="SingleText" style="width:295px;"/><br /><span id="SingleText_notice"></span></div>
+            <div id="CreateBitRadio">
+        <div class="display-label">SingleBit：</div>
+        <div class="display-field">
+            @*<input  type="text" id="SingleBit" name="SingleBit" style="width:295px;"/>*@
+            <div id="SingleBit">
+            <input type="radio" name="radioSingleBit" value="1" checked="checked"/>是
+            <input type="radio" name="radioSingleBit" value="0"/>否
+            </div>            
+            <br /><span id="SingleBit_notice"></span></div>
+
+        <div class="display-label">SingleTinyintEnum：</div>
+        <div class="display-field">
+            @*<input  type="text" id="SingleTinyintEnum" name="SingleTinyintEnum" style="width:295px;"/>*@
+            <div id="SingleTinyintEnum">
+            <input  type="radio" name="radioSingleTinyintEnum" value="1" checked="checked"/>A
+            <input  type="radio" name="radioSingleTinyintEnum" value="2"/>B
+            <input  type="radio" name="radioSingleTinyintEnum" value="3"/>C                
+            </div>
+            <br /><span id="SingleTinyintEnum_notice"></span>
+        </div>
+            
+        <div class="display-label">SingleIntEnum：</div>
+        <div class="display-field">
+            @*<input  type="text" id="SingleIntEnum" name="SingleIntEnum" style="width:295px;"/>*@
+            <div id="SingleIntEnum">
+            <input  type="radio" name="radioSingleEnum" value="1" checked="checked"/>A
+            <input  type="radio" name="radioSingleEnum" value="2"/>B
+            <input  type="radio" name="radioSingleEnum" value="3"/>C
+            </div>
+            <br />
+            <span id="SingleIntEnum_notice"></span>
+        </div>
 
         <div class="display-label">SingleBinary：</div>
         <div class="display-field"><input  type="file" id="SingleBinary" name="SingleBinary" style="width:295px;"/><span id="SingleBinary_notice" style="display:none;"></span></div>
-            </div>
+        
+        <div class="display-label">SingleLongVarchar：</div>
+        <div class="display-field">
+            @*<input  type="text" id="SingleLongVarchar" name="SingleLongVarchar" style="width:295px;"/>*@
+            <textarea id="SingleLongVarchar" name="SingleLongVarchar" style="width:295px;"></textarea>
+            <br /><span id="SingleLongVarchar_notice"></span></div>    
+        
+        </div>
     </fieldset>
