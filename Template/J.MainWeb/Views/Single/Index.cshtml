@@ -14,10 +14,6 @@
         elements: "ESingleLongVarchar",
         language:"cn"
     });
-    //tinyMCE.init({
-    //    mode: "exact",
-    //    elements: "SingleLongVarchar"
-    //});
 </script>    
 <script type="text/javascript">
     //功能：获取TinyMce编辑器的内容
@@ -81,7 +77,7 @@ function Detail(ID) {
             $("#DSingleDatetime").html(dataobj.SingleDatetime.replace(/T/," "));
             $("#DSingleVarchar").html(dataobj.SingleVarchar);
             $("#DSingleLongVarchar").html(dataobj.SingleLongVarchar);
-            $("#DSingleBit").html(dataobj.SingleBit);
+            $("#DSingleBit").html(dataobj.SingleBit.toString());
             $("#DSingleTinyintBool").html(dataobj.SingleTinyintBool);
             $("#DSingleTinyintEnum").html(dataobj.SingleTinyintEnum);
             $("#DSingleText").html(dataobj.SingleText);
@@ -114,7 +110,7 @@ function Create() {
     tinyMCE.init({
         mode: "exact",
         elements: "SingleLongVarchar",
-        cleanup_on_startup:true
+        language:"cn"
     });
     $("#SingleDatetime").jdatetimepicker({
         datetimeParse: "yyyy-MM-dd"
@@ -145,30 +141,35 @@ function Create() {
             success: function (data) {
                 var dataobj = JSON.parse(data);
                 $("#ESingleIntNumber").val(dataobj.SingleIntNumber);
-                //$("#ESingleIntEnum").val(dataobj.SingleIntEnum);
                 $("#ESingleMoney").val(dataobj.SingleMoney);
                 $("#ESingleDatetime").val(dataobj.SingleDatetime.replace(/T/, " "));
                 $("#ESingleVarchar").val(dataobj.SingleVarchar);
                 $("#ESingleLongVarchar").val(SetTinyMceContent("ESingleLongVarchar", dataobj.SingleLongVarchar));
-                //$("#ESingleBit").val(dataobj.SingleBit);
                 $("#ESingleTinyintBool").val(dataobj.SingleTinyintBool);
-                //$("#ESingleTinyintEnum").val(dataobj.SingleTinyintEnum);
                 $("#ESingleText").val(dataobj.SingleText);
-                
-                //dataobj.SingleIntEnum == ""
-                $("#ESingleIntEnum").children("span").remove();
-                $("#ESingleIntEnum").children(":checked").attr("checked", "");
-                $("#ESingleIntEnum").children(":radio").each(function () {
-                    if (parseInt($(this).attr("value")) == dataobj.SingleIntEnum) {
-                        $(this).attr("checked", "checked");
-                        $("#ESingleIntEnum").jradio();
-                    }
+                $("#editSingle").dialog('open');
+                //$("#ESingleIntEnum").val(dataobj.SingleIntEnum);
+                $("input:radio[name='radioESingleIntEnum']").each(function () {
+                    var temp = $(this)[dataobj.SingleIntEnum-1];
+                    this.checked = false;
                 });
 
-                //$("#EditBitRadio").jradio();
-                $("#editSingle").dialog('open');
+                //    .each(function () {
+                //    if (parseInt($(this).attr("value")) == dataobj.SingleIntEnum) {
+                //        $(this).attr("checked", true);
+                //        return;
+                //    }
+                //    else if (parseInt($(this).attr("value")) != dataobj.SingleIntEnum) {
+                //        $(this).attr("checked",false);
+                //    }
+                //});
+                //$("#ESingleTinyintEnum").val(dataobj.SingleTinyintEnum);
+                //$("#ESingleBit").val(dataobj.SingleBit);
+
             }
         });
+
+
         $("#ESingleDatetime").jdatetimepicker({
             datetimeParse: "yyyy-MM-dd"
         });
