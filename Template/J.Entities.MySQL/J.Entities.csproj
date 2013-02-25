@@ -67,9 +67,15 @@
     <Compile Include="ESingleTinyintEnum.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="EState.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Child.cs" />
     <Compile Include="Extensions\Parent.cs" />
     <Compile Include="Extensions\Single.cs" />
+    <Compile Include="MaterialType.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -100,6 +106,7 @@
     <EntityDeploy Include="ModelDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelDB.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>J.Entities</CustomToolNamespace>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>

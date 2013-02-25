@@ -9,6 +9,7 @@
         <EntityTypeShape EntityType="ModelDB.Parent" Width="3.125" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelDB.Single" Width="3.125" PointX="10.625" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="ModelDB.FK_Children_Parents" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ModelDB.MaterialType" Width="2.5" PointX="9" PointY="5.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

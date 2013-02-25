@@ -28,5 +28,6 @@ namespace J.Entities
         public DbSet<Child> Children { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Single> Singles { get; set; }
+        public DbSet<MaterialType> MaterialTypes { get; set; }
     }
 }
