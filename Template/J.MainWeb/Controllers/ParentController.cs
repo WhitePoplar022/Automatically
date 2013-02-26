@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using J.Entities;
+using Newtonsoft.Json;
 
 namespace J.MainWeb.Controllers
 {
@@ -32,16 +33,16 @@ namespace J.MainWeb.Controllers
                                                     ParentIntNumber = p.ParentIntNumber,
                                                     ParentIntEnum = p.ParentIntEnum,
                                                     ParentMoney = p.ParentMoney,
-                                                    ParentDatetime = p.ParentDatetime,
+                                                    ParentDatetime =p.ParentDatetime.Value,
                                                     ParentVarchar = p.ParentVarchar,
                                                     ParentLongVarchar = p.ParentLongVarchar,
                                                     ParentBit = p.ParentBit,
-                                                    ParentTinyintBool = p.ParentTinyintBool,
+                                                    ParentTinyintBool =p.ParentTinyintEnum,
                                                     ParentTinyintEnum = p.ParentTinyintEnum,
-                                                    ParentText = p.ParentText,
-                                                    ParentBinary = p.ParentBinary
+                                                    ParentText = p.ParentText
                                                 }).OrderBy(p => p.GUID).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
-            var result = new { Count = RecordCount, Source = ParentList };
+        
+            var result = new {Count = RecordCount, Source = ParentList };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

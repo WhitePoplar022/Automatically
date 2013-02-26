@@ -1,99 +1,91 @@
-﻿@model J.Entities.Parent
+﻿<fieldset>
+    <legend></legend>
+    <div id="Create-Parent">
+    <div class="display-label">ParentIntNumber：</div>
+    <div class="display-field">
+        <input type="text" id="ParentIntNumber" name="ParentIntNumber" style="width: 295px;" />
+        <br />
+        <span id="ParentIntNumber_notice"></span>
+    </div>
 
-@{
-    ViewBag.Title = "Create";
-}
+    <div class="display-label">ParentMoney：</div>
+    <div class="display-field">
+        <input type="text" id="ParentMoney" name="ParentMoney" style="width: 295px;" />
+        <br />
+        <span id="ParentMoney_notice"></span>
+    </div>
 
-<h2>Create</h2>
+    <div class="display-label">ParentDatetime：</div>
+    <div class="display-field">
+        <input type="text" id="ParentDatetime" name="ParentDatetime" style="width: 295px;" />
+        <br />
+        <span id="ParentDatetime_notice"></span>
+    </div>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+    <div class="display-label">ParentVarchar：</div>
+    <div class="display-field">
+        <input type="text" id="ParentVarchar" name="ParentVarchar" style="width: 295px;" />
+        <br />
+        <span id="ParentVarchar_notice"></span>
+    </div>
 
-    <fieldset>
-        <legend>Parent</legend>
+    <div class="display-label">ParentTinyintBool：</div>
+    <div class="display-field">
+        <input type="text" id="ParentTinyintBool" name="ParentTinyintBool" style="width: 295px;" />
+        <br />
+        <span id="ParentTinyintBool_notice"></span>
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentTinyintBool)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentTinyintBool)
-            @Html.ValidationMessageFor(model => model.ParentTinyintBool)
-        </div>
+    <div class="display-label">ParentText：</div>
+    <div class="display-field">
+        <input type="text" id="ParentText" name="ParentText" style="width: 295px;" />
+        <br />
+        <span id="ParentText_notice"></span>
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.GUID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.GUID)
-            @Html.ValidationMessageFor(model => model.GUID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentIntNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentIntNumber)
-            @Html.ValidationMessageFor(model => model.ParentIntNumber)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentMoney)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentMoney)
-            @Html.ValidationMessageFor(model => model.ParentMoney)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentDatetime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentDatetime)
-            @Html.ValidationMessageFor(model => model.ParentDatetime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentVarchar)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentVarchar)
-            @Html.ValidationMessageFor(model => model.ParentVarchar)
+    <div id="CreateBitRadio">
+        <div class="display-label">ParentBit：</div>
+        <div class="display-field">
+            <div id="ParentBit">
+                <input type="radio" name="radioParentBit" value="1" checked="checked" />是
+            <input type="radio" name="radioParentBit" value="0" />否
+            </div>
+            <br />
+            <span id="ParentBit_notice"></span>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentLongVarchar)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentLongVarchar)
-            @Html.ValidationMessageFor(model => model.ParentLongVarchar)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentBit)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentBit)
-            @Html.ValidationMessageFor(model => model.ParentBit)
+        <div class="display-label">ParentTinyintEnum：</div>
+        <div class="display-field">
+            <div id="ParentTinyintEnum">
+                <input type="radio" name="radioParentTinyintEnum" value="1" checked="checked" />A
+            <input type="radio" name="radioParentTinyintEnum" value="2" />B
+            <input type="radio" name="radioParentTinyintEnum" value="3" />C                
+            </div>
+            <br />
+            <span id="ParentTinyintEnum_notice"></span>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ParentText)
+        <div class="display-label">ParentIntEnum：</div>
+        <div class="display-field">
+            <div id="ParentIntEnum">
+                <input type="radio" name="radioParentEnum" value="1" checked="checked" />A
+            <input type="radio" name="radioParentEnum" value="2" />B
+            <input type="radio" name="radioParentEnum" value="3" />C
+            </div>
+            <br />
+            <span id="ParentIntEnum_notice"></span>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ParentText)
-            @Html.ValidationMessageFor(model => model.ParentText)
+
+        <div class="display-label">ParentBinary：</div>
+        <div class="display-field">
+            <input type="file" id="ParentBinary" name="ParentBinary" style="width: 295px;" /><span id="ParentBinary_notice" style="display: none;"></span></div>
+
+        <div class="display-label">ParentLongVarchar：</div>
+        <div class="display-field">
+            <textarea id="ParentLongVarchar" name="ParentLongVarchar" style="width: 295px;"></textarea>
+            <br />
+            <span id="ParentLongVarchar_notice"></span>
         </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    </div>
+        </div>
+</fieldset>
