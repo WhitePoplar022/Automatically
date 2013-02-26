@@ -4,9 +4,10 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ModelDB.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelDB.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ModelDBStoreContainer">
           <EntitySet Name="Children" EntityType="ModelDB.Store.Children" store:Type="Tables" Schema="automaticallydb" />
+          <EntitySet Name="MaterialTypes" EntityType="ModelDB.Store.MaterialTypes" store:Type="Tables" Schema="automaticallydb" />
           <EntitySet Name="Parents" EntityType="ModelDB.Store.Parents" store:Type="Tables" Schema="automaticallydb" />
           <EntitySet Name="Singles" EntityType="ModelDB.Store.Singles" store:Type="Tables" Schema="automaticallydb" />
           <AssociationSet Name="FK_Children_Parents" Association="ModelDB.Store.FK_Children_Parents">
@@ -33,6 +34,17 @@
           <Property Name="ChildText" Type="longtext" />
           <Property Name="ChildBinary" Type="longblob" />
         </EntityType>
+        <EntityType Name="MaterialTypes">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ParentID" Type="varchar" MaxLength="200" />
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="IsLeafNode" Type="bit" Nullable="false" />
+          <Property Name="State" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="Parents">
           <Key>
             <PropertyRef Name="GUID" />
@@ -43,7 +55,7 @@
           <Property Name="ParentMoney" Type="decimal" Precision="18" Scale="8" />
           <Property Name="ParentDatetime" Type="datetime" />
           <Property Name="ParentVarchar" Type="varchar" MaxLength="200" />
-          <Property Name="ParentLongVarchar" Type="text" />
+          <Property Name="ParentLongVarchar" Type="varchar" MaxLength="2000" />
           <Property Name="ParentBit" Type="bit" />
           <Property Name="ParentTinyintBool" Type="tinyint" />
           <Property Name="ParentTinyintEnum" Type="tinyint" />
@@ -60,7 +72,7 @@
           <Property Name="SingleMoney" Type="decimal" Precision="18" Scale="8" />
           <Property Name="SingleDatetime" Type="datetime" />
           <Property Name="SingleVarchar" Type="varchar" MaxLength="200" />
-          <Property Name="SingleLongVarchar" Type="text" />
+          <Property Name="SingleLongVarchar" Type="varchar" MaxLength="2000" />
           <Property Name="SingleBit" Type="bit" />
           <Property Name="SingleTinyintBool" Type="tinyint" />
           <Property Name="SingleTinyintEnum" Type="tinyint" />
@@ -79,8 +91,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ModelDB" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -92,6 +103,7 @@
             <End Role="Parents" EntitySet="Parents" />
             <End Role="Children" EntitySet="Children" />
           </AssociationSet>
+          <EntitySet Name="MaterialTypes" EntityType="ModelDB.MaterialType" />
         </EntityContainer>
         <EntityType Name="Child">
           <Key>
@@ -190,6 +202,21 @@
           <Member Name="B" Value="2" />
           <Member Name="C" Value="3" />
         </EnumType>
+        <EntityType Name="MaterialType">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Type="String" Name="GUID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ParentID" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Index" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsLeafNode" Nullable="false" />
+          <Property Type="ModelDB.EState" Name="State" Nullable="false" />
+        </EntityType>
+        <EnumType Name="EState" UnderlyingType="SByte">
+          <Member Name="Disable" Value="0" />
+          <Member Name="Enable" Value="1" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -249,6 +276,18 @@
                 <ScalarProperty Name="SingleTinyintEnum" ColumnName="SingleTinyintEnum" />
                 <ScalarProperty Name="SingleText" ColumnName="SingleText" />
                 <ScalarProperty Name="SingleBinary" ColumnName="SingleBinary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialTypes">
+            <EntityTypeMapping TypeName="ModelDB.MaterialType">
+              <MappingFragment StoreEntitySet="MaterialTypes">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="IsLeafNode" ColumnName="IsLeafNode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

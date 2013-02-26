@@ -1,44 +1,58 @@
 ﻿<fieldset>
         <div id="e">
-        <div class="display-label">ESingleIntNumber：</div>
-        <div class="display-field"><input  type="text" id="ESingleIntNumber" name="ESingleIntNumber" style="width:295px;"/><br /><span id="ESingleIntNumber_notice"></span></div>
+            <div class="display-label">ESingleIntNumber：</div>
+            <div class="display-field"><input  type="text" id="ESingleIntNumber" name="ESingleIntNumber" style="width:295px;"/><br /><span id="ESingleIntNumber_notice"></span></div>
     
-        <div class="display-label">ESingleMoney：</div>
-        <div class="display-field"><input  type="text" id="ESingleMoney" name="ESingleMoney" style="width:295px;"/><br /><span id="ESingleMoney_notice"></span></div>
+            <div class="display-label">ESingleMoney：</div>
+            <div class="display-field"><input  type="text" id="ESingleMoney" name="ESingleMoney" style="width:295px;"/><br /><span id="ESingleMoney_notice"></span></div>
 
-        <div class="display-label">ESingleDatetime：</div>
-        <div class="display-field"><input  type="text" id="ESingleDatetime" name="ESingleDatetime" style="width:295px;"/><br /><span id="ESingleDatetime_notice"></span></div>
+            <div class="display-label">ESingleDatetime：</div>
+            <div class="display-field"><input  type="text" id="ESingleDatetime" name="ESingleDatetime" style="width:295px;"/><br /><span id="ESingleDatetime_notice"></span></div>
 
-        <div class="display-label">ESingleVarchar：</div>
-        <div class="display-field"><input  type="text" id="ESingleVarchar" name="ESingleVarchar" style="width:295px;"/><br /><span id="ESingleVarchar_notice"></span></div>
+            <div class="display-label">ESingleVarchar：</div>
+            <div class="display-field"><input  type="text" id="ESingleVarchar" name="ESingleVarchar" style="width:295px;"/><br /><span id="ESingleVarchar_notice"></span></div>
             
-        <div class="display-label">ESingleTinyintBool：</div>
-        <div class="display-field"><input  type="text" id="ESingleTinyintBool" name="ESingleTinyintBool" style="width:295px;"/><br /><span id="ESingleTinyintBool_notice"></span></div>
-            
-        <div class="display-label">ESingleText：</div>
-        <div class="display-field">
-            <input  type="text" id="ESingleText" name="ESingleText" style="width:295px;"/>
-            <br /><span id="ESingleText_notice"></span></div>
-
-    <div id="EditBitRadio">
-        <div class="display-label">ESingleBit：</div>
-        <div class="display-field">
-            @*<input  type="text" id="ESingleBit" name="ESingleBit" style="width:295px;"/>*@
-            <div id="ESingleBit">
-                <input type="radio" name="radioESingleBit"  value="1"/>是
-                <input type="radio" name="radioESingleBit"  value="0"/>否
-                </div>
-            <br />
-            <span id="ESingleBit_notice"></span>
+        @*    <div class="display-label">ESingleTinyintBool：</div>
+            <div class="display-field"><input  type="text" id="ESingleTinyintBool" name="ESingleTinyintBool" style="width:295px;"/><br /><span id="ESingleTinyintBool_notice"></span></div>
+                *@
+            <div class="display-label">ESingleText：</div>
+            <div class="display-field">
+                <input  type="text" id="ESingleText" name="ESingleText" style="width:295px;"/>
+                <br /><span id="ESingleText_notice"></span></div>            
         </div>
-
+        <div id="EditBitRadio">
+            <div class="display-label">ESingleBit：</div>
+            <div class="display-field">
+                @*<input  type="text" id="ESingleBit" name="ESingleBit" style="width:295px;"/>*@
+                <div id="ESingleBit">
+                    <input type="radio" name="radioESingleBit"  value="1"/>是
+                    <input type="radio" name="radioESingleBit"  value="0"/>否
+                    </div>
+                <br />
+                <span id="ESingleBit_notice"></span>
+            </div>        
+       </div>
+        <div id="EditBitRadio2">
+            <div class="display-label">ESingleTinyintBool：</div>
+            <div class="display-field">
+                <div id="ESingleTinyintBool">
+                    <input type="radio" name="radioESingleTinyintBool"  value="1"/>是
+                    <input type="radio" name="radioESingleTinyintBool"  value="0"/>否
+                </div>
+                <br />
+                <span id="ESingleTinyintBool_notice"></span>
+            </div>
+        
+       </div>
         <div class="display-label">ESingleTinyintEnum：</div>
         <div class="display-field">
             @*<input  type="text" id="ESingleTinyintEnum" name="ESingleTinyintEnum" style="width:295px;"/>*@
-            <div id="ESingleTinyintEnum">
+    @*        <div id="ESingleTinyintEnum">
                 <input  type="radio" name="radioESingleTinyintEnum" value="1"/>A
                 <input  type="radio" name="radioESingleTinyintEnum" value="2"/>B
                 <input  type="radio" name="radioESingleTinyintEnum" value="3"/>C
+            </div>*@
+            <div id="ESingleTinyintEnum">
             </div>
             <br />
             <span id="ESingleTinyintEnum_notice"></span>
@@ -47,15 +61,16 @@
         <div class="display-label">ESingleIntEnum：</div>
         <div class="display-field">
             @*<input  type="text" id="ESingleIntEnum" name="ESingleIntEnum" style="width:295px;"/>*@
-            <div id="ESingleIntEnum">
+            @*<div id="ESingleIntEnum">
                 <input  type="radio" name="radioESingleIntEnum" value="1" />A
                 <input  type="radio" name="radioESingleIntEnum" value="2"/>B
                 <input  type="radio" name="radioESingleIntEnum" value="3"/>C            
+            </div>*@
+            <div id="ESingleIntEnum">
             </div>
             <br />
             <span id="ESingleIntEnum_notice"></span>
         </div>
-   </div>
         <div class="display-label">SingleBinary：</div>
         <div class="display-field"><input  type="file" id="ESingleBinary" name="ESingleBinary" style="width:295px;"/><span id="ESingleBinary_notice" style="display:none;"></span></div>
            
@@ -64,5 +79,4 @@
             <textarea id="ESingleLongVarchar" name="ESingleLongVarchar" style="width:295px;"></textarea>
             <br /><span id="ESingleLongVarchar_notice"></span></div>
 
-              </div>
     </fieldset>

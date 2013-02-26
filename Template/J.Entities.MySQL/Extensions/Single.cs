@@ -1,10 +1,10 @@
 namespace J.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Single
-    {
+	using System;
+	using System.Collections.Generic;
+	
+	public partial class Single
+	{
 		public Nullable<bool> SingleTinyintBool
 		{
 			get
